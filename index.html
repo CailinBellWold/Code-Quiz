@@ -20,72 +20,84 @@
 
 <body>
     <header class="header">
-        <section> 
-            <section> 
-                <img src="images/Code-Quiz-Logo.png" alt="Cailin Bell Wold logo">
-                <h1>Code Quiz</h1>
+        <section class="header-container">
+            <section class="logo"> 
+                <img src="images/Code-Quiz-Logo.png" alt="Code Quiz Logo">
+                
             </section>
-        </section>
-        <section>
-        <nav>
-            <ul>
-            <li><a class="#high-scores-ID">High Score</a></li>
-            </ul>
-        </nav>
+            <section class="nav-container">
+                <nav class="nav">
+                    <ul>
+                        <li><a class="#high-scores-ID">High Score</a></li>
+                    </ul>
+                </nav>
+            </section>
         </section>
     </header>
 
-<main>
-    <!-- Instructions -->
-    <section class="instructions">
-        <section>
-            <h2 id="instructions-ID">Instructions</h2>
-        </section>
-        <section>
-            <p>Hello and welcome to your Code Quiz.</p>
-            <p>As a budding web-developer, you may want to check your skills...</p>
-        </section>  
-        <section class="button" >
-            <button id="begin-ID">Begin</button>
-        </section>      
-    </section>
+    <main>
+        <section class="main-container">
+            <!-- Instructions -->
+            <section class="instructions">
+                <h2 id="instructions-ID">Instructions</h2>
+            </section>
+            <section>
+                <p>Hello and welcome to your Code Quiz! As a budding web-developer, you may want to check your skills to identify areas of challenge or to build confidence around your nascent skills. This quiz is designed to... </p>
+            </section>  
+            <section class="button" >
+                <button id="begin-ID">Begin</button>
+            </section>
 
-    <!-- Quiz Area -->
-    <section class="quiz-card">
-        <form class="quiz" method="">
-            <label for="question-number">TO DO: Questions Number Should Appear Here</label>
-            <label for="question-text">TO DO: Questions Should Appear Here</label>
-            <input type="multiple-choice" placeholder="Questions Appear Here" name="question-text" id="question-text" />
-        </form>
-        <section class="button">
-            <button class="submit">Submit Answer</button>
-        </section>
-        <section class="validation">
-        </section>
-        <p>SCORE: <span id="current-score">TO DO: Score Should Appear Here</span></p>
-    </section>
+            <!-- Quiz Area -->
+            <section class="quiz-card">
+                <form class="quiz" method="">
+                    <label class="question-number">TO DO: 1-10</label>
+                    <label class="question-text">TO DO: Questions Should Appear Here</label>
+                    <input type="multiple-choice" placeholder="Questions Appear Here" name="question-text" id="question-text" />
+                </form>
+<br>
+                <section class="button">
+                    <button class="submit">Submit Answer</button>
+                </section>
+<br>
+                <!--Copied from W3 Schools. Need to customize.-->
+                <section id="my-progress">
+                    <section id="my-bar"></section>
+                </section>
 
-    <!--Copied from W3 Schools. Need to customize.-->
-    <section id="my-progress">
-        <section id="my-bar"></section>
-    </section>
+                <!--Countdown Timer-->
+                <section id="countdown">
+                    <p>Countdown Here</p>
+                </section>
+
+                <!--Score-->
+                <section>
+                    <p>SCORE: <span id="current-score">TO DO: Score Should Appear Here</span></p>
+                </section>
+
+            </section>
+
+            <section class="validation"></section>
+            
+
+        </section>
 
     <!--High Scores...page? Overlay?-->
     <section class="high-scores" id="high-scores-ID">
         <p>TO DO: Figure Out How this Works (HIGHSCORE)</p>
     </section>
-
 </main> 
 
 <footer class="footer">
     <section class="contact-container">
-        <h2 id="contactID">Contact</h2>
-        <a class="fa fa-linkedin fa-lg" href="https://www.linkedin.com/in/cailinbellwold/" target="_blank" rel="noreferrer noopener" alt="LinkedIn"></a>
-        <a class="fa fa-github fa-lg" href="https://github.com/CailinBellWold" target="_blank" rel="noreferrer noopener" alt="GitHub"></a>
-        <a class="fa fa-envelope fa-lg" href="mailto:cmbellwold@gmail.com?subject=Contact from Portfolio Site" alt="E-mail cmbellwold@gmail.com"></a> 
-    </section>
-    <section>
-        <p>Made for YOU!<br>©2021 Cailin M. Bell Wold</p>
+        <section>
+            <p>Made for YOU! | ©2021 Cailin M. Bell Wold</p>
+        </section>
+        <section>
+            <a class="fa fa-linkedin fa-lg" href="https://www.linkedin.com/in/cailinbellwold/" target="_blank" rel="noreferrer noopener" alt="LinkedIn"></a>
+            <a class="fa fa-github fa-lg" href="https://github.com/CailinBellWold" target="_blank" rel="noreferrer noopener" alt="GitHub"></a>
+            <a class="fa fa-envelope fa-lg" href="mailto:cmbellwold@gmail.com?subject=Contact from Portfolio Site" alt="E-mail cmbellwold@gmail.com"></a> 
+        </section>
     </section>
 </footer>
 
