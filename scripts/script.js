@@ -42,25 +42,39 @@ let questions = [
         },
         correctAnswer: "Q3a"
             },
-  ];
+];
 
-//Copied from W3 Schools. Need to update and Customize
-var i = 0;
-function move() {
-  if (i == 0) {
-    i = 1;
-    var width = 1;
-    var id = setInterval(frame, 10);
-    function frame() {
-      if (width >= 100) {
-        clearInterval(id);
-        i = 0;
-      } else {
-        width++;
-        progressBar.style.width = width + "%";
-      }
+//Score. Add items from an array.
+let sumArray = function(arr) {
+    let result = 0;
+
+    for (let iScore = 0; iScore < arr.length; iScore++) {
+    let currentNumber = arr[iScore];
+    result += currentNumber;
     }
-  }
+
+    return result;
+};
+
+//Progress Bar copied from W3 Schools. Need to update and Customize
+let iProgress = 0;
+
+function move() {
+    if (iProgress == 0) {
+        iProgress = 1;
+        let width = 1;
+        let id = setInterval(frame, 10);
+
+        function frame() {
+            if (width >= 100) {
+                clearInterval(id);
+                iProgress = 0;
+            } else {
+                width++;
+                progressBar.style.width = width + "%";
+            }
+        }
+    }
 }
 
 //Timer
