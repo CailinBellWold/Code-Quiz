@@ -9,83 +9,97 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Code Quiz</title>
     <!--Stylesheets-->
-    <link rel="stylesheet" href="styles/reset.css">
+    <link rel="stylesheet" href="styles/jass.css">
     <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
     <!--Fonts-->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300&family=Cinzel&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Poppins:wght@200;300&display=swap" rel="stylesheet">
     <!-- Icon library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
-    <header class="header">
-        <section class="header-container">
-            <section class="logo"> 
-                <img src="images/Code-Quiz-Logo.png" alt="Code Quiz Logo">
-                
-            </section>
-            <section class="nav-container">
-                <nav class="nav">
-                    <ul>
-                        <li><a class="#high-scores-ID">High Score</a></li>
-                    </ul>
-                </nav>
-            </section>
-        </section>
+    <nav class="navbar bg-dark navbar-dark text-white fixed-top">
+        <ul class="navbar-nav ms-auto">
+            <li><a class="nav-item high-scores-ID">High Score</a></li>
+        </ul>
+    </nav>
+
+    <header class="jumbotron jumbotron-fluid bg-dark text-light">
+        <div class="container">
+            <div class="row align-items-end">
+                <div class="col-12 col-md-6">
+                    <img class="img-fluid" src="./images/Code-Quiz-Logo.png" >
+                </div>
+            
+                <div class="col-12 col-md-6">
+                    <h1>Welcome Code Quiz!</h1>
+                    <p> As a budding web-developer, you may want to check your skills to identify areas of challenge or to build confidence around your nascent skills. This quiz is designed to... !</p>
+                    <button id="begin-ID" type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalCenter"> Begin </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
     </header>
 
     <main>
         <section class="main-container">
-            <!-- Instructions -->
-            <section class="instructions">
-                <h2 id="instructions-ID">Instructions</h2>
-            </section>
-            <section>
-                <p>Hello and welcome to your Code Quiz! As a budding web-developer, you may want to check your skills to identify areas of challenge or to build confidence around your nascent skills. This quiz is designed to... </p>
-            </section>  
-            <section class="button" >
-                <button id="begin-ID">Begin</button>
-            </section>
 
-            <!-- Quiz Area -->
-            <section class="quiz-card">
-                <form class="quiz" method="">
-                    <label class="question-number">TO DO: 1-10</label>
-                    <label class="question-text">TO DO: Questions Should Appear Here</label>
-                    <input type="multiple-choice" placeholder="Questions Appear Here" name="question-text" id="question-text" />
-                </form>
-<br>
-                <section class="button">
-                    <button class="submit">Submit Answer</button>
-                </section>
-<br>
-                <!--Copied from W3 Schools. Need to customize.-->
-                <section id="my-progress">
-                    <section id="my-bar"></section>
-                </section>
+  <!-- Modal -->
+  <div class="modal fade" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ModalCenterTitle">Code Quiz: Javascript</h5>
 
-                <!--Countdown Timer-->
-                <section id="countdown">
-                    <p>Countdown Here</p>
-                </section>
-
-                <!--Score-->
-                <section>
-                    <p>SCORE: <span id="current-score">TO DO: Score Should Appear Here</span></p>
-                </section>
-
-            </section>
-
-            <section class="validation"></section>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          
+        </div>
+        <div class="modal-body">
+        <!--Form-->
+        <form class="quiz" method="" autofocus>
+            <label class="question-number">1</label>
+            <label class="question-text">TO DO: Questions Should Appear Here</label>
             
+            <fieldset>
+                <legend>Select One</legend>
 
-        </section>
+                    <input type="radio" name="userAnswer" value="" checked="" tabindex=1> 
+                    <label for="answerA">AnswerA</label>
 
-    <!--High Scores...page? Overlay?-->
-    <section class="high-scores" id="high-scores-ID">
-        <p>TO DO: Figure Out How this Works (HIGHSCORE)</p>
-    </section>
+                    <input type="radio" name="userAnswer" value="" checked="" tabindex=2>
+                    <label for="answerB">AnswerB</label>
+
+                    <input type="radio" name="userAnswer" value="" checked="" tabindex=3>
+                    <label for="answerC">AnswerC</label>
+
+                    <input type="radio" name="userAnswer" value="" checked="" tabindex=4>
+                    <label for="answerD">AnswerD</label>
+
+            </fieldset>
+            <!-- <button  class="button" >Submit</button> -->
+            <!-- <button type="submit" class="btn btn-primary" tabindex=5>Submit</button> -->
+        </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
 </main> 
 
 <footer class="footer">
@@ -100,6 +114,12 @@
         </section>
     </section>
 </footer>
+
+<!-- jQuery library -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<!-- JavaScript file -->
+<script type="text/javascript" src="./scripts/script.js">
 
     </body>
 </html>

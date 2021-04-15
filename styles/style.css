@@ -1,4 +1,4 @@
-*,
+/* *,
 *::before,
 *::after {
 }
@@ -22,7 +22,7 @@ html {
 }
 
 /*Flexbox Container*/
-body {
+/* body {
   font-size: 16px;
   display: flex;
   flex-direction: column;
@@ -33,23 +33,23 @@ body {
   letter-spacing: .5px;
   line-height: 1.6em;
   color: black;
-}
+} */
 
 /*Flexbox Body; Flexbox Header*/
-header {
+/* header {
   height: 175px;
   background-image: linear-gradient(black, var(--c-dblue), black);
-}
+} */
 
 /* Flexbox Body; Flexbox Header; Item .header-container*/
-.header-container {
+/* .header-container {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
   margin: 0 16.5%;
   height: 100%;
-}
-
+} */
+/* 
 .logo {
   width: 66.66%;
   height: 100%;
@@ -58,10 +58,10 @@ header {
 .header img {
   border: none;
   overflow: hidden;
-}
+} */
 
 /* Flexbox Body; Flexbox Header; Item .nav-container */
-.nav-container {
+/* .nav-container {
   display: flex;
   align-items: flex-end;
   justify-content: right;
@@ -73,9 +73,9 @@ header {
   flex-grow: 1;
   text-align: right;
   margin-right: 5px;
-}
+} */
 
-.nav a {
+/* .nav a {
   color: var(--c-yellow);
   text-transform: uppercase;
   font-size: large;
@@ -87,22 +87,23 @@ header {
   color: var(--c-white);
   background-color: var(--c-yellow);
   border-radius: 10px 10px 0 0;
-}
+} */
 
 /* Flexbox Body; Flexbox Main */
-main {
+/* main {
   margin: 1% 16.5%;
   background-color: var(--c-white);
   /* border: solid yellow 2px; */
-  min-height: calc(100vh - 275px);
+  /* min-height: calc(100vh - 275px);
   border-radius: 10px;
-}
+  
+} */
 
 /* Flexbox Body; Flexbox Main; Flexbox .main-container (may rename as I figure out how to lay out elements*/
-.main-container {
-  margin: 1rem;
+/* .main-container {
+  margin: 1rem; */
   /* display: flex; */
-}
+/* }
 
 .instructions {
   border-bottom: 1px solid var(--c-lblue);
@@ -114,16 +115,14 @@ h2 {
   padding: 5px 0;
 }
 
-.button {
-  color: var(--c--black);
-  text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
-  padding: 2px;
-}
+legend {
+  background-color: var(--c-dblue);
+  color: var(--c-white);
+  padding: 3px 6px;
+} */
 
 /* Flexbox Body; Flexbox Main; Flexbox Main-Container; Flexbox .quiz-card */
-.quiz-card {
+/* .quiz-card {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -133,19 +132,28 @@ h2 {
   align-items: left;
   padding: 2% 5% 2% 5%;
   width: 100%;
-  filter: drop-shadow(30px 30px 20px var(--c-yellow));
+  border: 3px solid var(--c-white);
+  filter: drop-shadow(1rem 1rem 0.75rem var(--c-llgrey));
 }
 
 .question-number {
   font-weight: bold;
+  font-size: x-large;
+  color: var(--c-yellow);
+  margin: 1em 0; */
+   /* border-radius: 50%; */
+/* }
+
+.question-text {
+  font-style: italic;
 }
 
 .high-scores {
   margin: 10em 0 0 0;
   text-align: center;
-}
+} */
 /* FlexboxBody; Flexbox Footer */
-footer {
+/* footer {
   height: 50px;
   color: var(--c-lgrey);
   background-color: var(--c-yellow);
@@ -153,43 +161,43 @@ footer {
   border-top: 2px white solid;
   border-bottom: 2px white solid;
   /* border: solid green 2px; */
-}
+} */
 
 /* FlexboxBody; FlexboxFooter; Flexbox.contact-container */
-.contact-container {
+/* .contact-container {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: baseline;
   /* border: solid blue 2px; */
-  margin: .75rem 16.5%;
+  /* margin: .75rem 16.5%;
   overflow: hidden;
   height: 100%;
-}
+} */
 
 /* Font awesome icons */
-.fa {
-  text-decoration: none;
+/* .fa {
+  text-decoration: none; */
   /* margin-top: 5px; */
-  color: var(--c-white);
+  /* color: var(--c-white);
   margin: 5px 10px;
-}
-
+} */
+/* 
 .fa:hover {
   color: var(--c-dblue);
-}
+} */
 
 /*Progress Bar*/
-#my-progress {
+/* #my-progress {
   width: 100%;
   background-color: var(--c-llgrey);
-}
+} */
 
-#my-bar {
+/* #my-bar {
   width: 1%;
   height: 30px;
   background-color: var(--c-lblue);
-}
+} */
 
 /* Media Queries
 @media (max-width: 690px) {
