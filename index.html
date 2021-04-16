@@ -11,7 +11,7 @@
     <!--Stylesheets-->
     <link rel="stylesheet" href="styles/jass.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="styles/style.css">
+    <!-- <link rel="stylesheet" href="styles/style.css"> -->
     <!--Fonts-->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Poppins:wght@200;300&display=swap" rel="stylesheet">
@@ -27,22 +27,22 @@
     <header>
 
         <!--NavBar-->
-        <nav class="navbar bg-dark navbar-dark text-white fixed-top">
-            <ul class="navbar-nav">
+        <!-- <nav class="navbar bg-dark navbar-dark text-white fixed-top">
+            <ul class="navbar-nav ml-auto">
                 <li><a class="nav-item high-scores-ID">High Score</a></li>
             </ul>
-        </nav> 
+        </nav>  -->
         <!--Jumbotron-->
         <div class="jumbotron jumbotron-fluid bg-dark text-light">
             <div class="container">
                 <div class="row align-items-end">
-                    <div class="col-12 col-md-6">
+                    <div class="col-12 col-md-5">
                         <img class="img-fluid" src="./images/Code-Quiz-Logo.png" >
                     </div>
-                    <div class="col-12 col-md-6">
+                    <div class="col-12 col-md-7">
                     <h1>Welcome to Code Quiz!</h1>
                         <p> As a budding web-developer, you may want to check your skills to identify areas of challenge or to build confidence around your nascent skills. This quiz is designed to... !</p>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#quizModal">Let's Begin</button>
+                        <button type="button" class="btn btn-primary begin" data-toggle="modal" data-target="#quizModal">Let's Begin</button>
                     </div>
                 </div>
             </div>
@@ -50,7 +50,8 @@
     </header>
 
     <main>
-        <div class="container">
+        <section class="container">
+
             <!-- Quiz Modal -->
             <div class="modal fade" id="quizModal">
                 <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -64,116 +65,100 @@
 
                         <!-- Quiz Modal: Body-->
                         <div class="modal-body">
-
-                            <!--Form-->
-                            <form class="quiz" method="" autofocus>
-                                <!--Form: Question Number-->
-                                <label class="question-number">1</label>
-                                <!--Form: Question-->
-                                <label class="question-text">TO DO: Questions Should Appear Here</label>
-                                <!--Form: Possible Answers-->
-                                <fieldset>
-                                    <legend>Select One</legend>
-                                        <!--Possible Answer: A-->
-                                        <input type="radio" name="userAnswer" value="" checked="" tabindex=1> 
-                                        <label for="answerA">AnswerA</label>
-                                        <!--Possible Answer: B-->
-                                        <input type="radio" name="userAnswer" value="" checked="" tabindex=2>
-                                        <label for="answerB">AnswerB</label>
-                                        <!--Possible Answer: C-->
-                                        <input type="radio" name="userAnswer" value="" checked="" tabindex=3>
-                                        <label for="answerC">AnswerC</label>
-                                        <!--Possible Answer: D-->
-                                        <input type="radio" name="userAnswer" value="" checked="" tabindex=4>
-                                        <label for="answerD">AnswerD</label>
-                                </fieldset>
-
-                                <!--Progress Bar-->
-                                <div class="progress">
-                                    <div class="progress-bar" style="width:70%"></div>
-                                </div>
+                            <form class="quiz">
+                                <!--TO DO: Get Legend to work with answers grouped below. Need the same name.-->
+                                <legend>Select One</legend>
                             </form>
+                            <div class="results"></div>
+                        </div>
+
+                        <!--Progress Bar-->
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" style="width:70%"></div>
                         </div>
 
                         <!-- Quiz Modal: Footer-->
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary" tabindex=5>Next Question</button>
+                            <button type="submit" class="btn btn-primary next" tabindex=5>Next Question</button>
+                            <button type="submit" class="btn btn-primary submit" tabindex=5>Submit</button>
+                            <p>Time Remaining: </p><p class="countdown-timer"></p>
                         </div>
+
                     </div>
                 </div>
             </div>
-        </div>
 
-    <section class="container">
-        <section class="row my-3 justify-content-around">
-            <section class="justify-content-around">
+        </section>
+
+        <section class="container">
+            <div class="row">
+
                 <!--Learning Resources-->
-                <div class="col-12 col-sm-4">
+                <div class="col-12 col-md-5">
                     <div class="card">
                         <h3 class="card-header">Learning Resources</h3>
-                        <div class="card-body">
-                            <ul class="card-text list-unstyled mb-0">
-                                <li><a href="https://www.codecademy.com/learn/introduction-to-javascript" target="_blank" rel="noreferrer noopener" >Codecademy</a></li>
-                                <li><a href="https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/" target="_blank" rel="noreferrer noopener" >FreeCodeCamp</a></li>
-                                <li><a href="https://www.w3schools.com/js/DEFAULT.asp" target="_blank" rel="noreferrer noopener" >W3 Schools</a></li>
-                            </ul>
-                        </div>
+                        <!-- <div class="card-body"> -->
+                            <div class="list-group">
+                                <a href="https://www.codecademy.com/learn/introduction-to-javascript" target="_blank" rel="noreferrer noopener" class="list-group-item list-group-item-action">Codecademy</a>
+                                <a href="https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/" target="_blank" rel="noreferrer noopener" class="list-group-item list-group-item-action">FreeCodeCamp</a>
+                                <a href="https://www.w3schools.com/js/DEFAULT.asp" target="_blank" rel="noreferrer noopener" class="list-group-item list-group-item-action"><h6>W3 Schools</h6> <p>The World's Largest Code Development Site</p></a>
+                            </div>
+                        <!-- </div> -->
                     </div>
                 </div>
-            </section>
+            
 
-                    <!--High Scores-->
-                    <div class="col-12 col-sm-8">
-                        <div class="card">
-                            <h3 class="card-header">High Scores</h3>
-                            <table class="card-body table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Score</th>
-                                        <th scope="col">Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Name1</td>
-                                        <td>Score1</td>
-                                        <td>Date1</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Name2</td>
-                                        <td>Score2</td>
-                                        <td>Date2</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Name3</td>
-                                        <td>Score3</td>
-                                        <td>Date3</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">4</th>
-                                        <td>Name4</td>
-                                        <td>Score4</td>
-                                        <td>Date4</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">5</th>
-                                        <td>Name5</td>
-                                        <td>Score5</td>
-                                        <td>Date5</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div> 
+                <!--High Scores-->
+                <div class="col-12 col-md-7">
+                    <div class="card">
+                        <h3 class="card-header">High Scores</h3>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Score</th>
+                                    <th scope="col">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>Name1</td>
+                                    <td>Score1</td>
+                                    <td>Date1</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>Name2</td>
+                                    <td>Score2</td>
+                                    <td>Date2</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>Name3</td>
+                                    <td>Score3</td>
+                                    <td>Date3</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">4</th>
+                                    <td>Name4</td>
+                                    <td>Score4</td>
+                                    <td>Date4</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">5</th>
+                                    <td>Name5</td>
+                                    <td>Score5</td>
+                                    <td>Date5</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-            </section>
+                </div>
+            </div>
         </section>
-    </section>
-</main>
+    </main>
 
 <footer class="bg-dark text-center text-white fixed-bottom expand-lg" id="footer">
     <section class="container p-2">
@@ -188,10 +173,10 @@
 </footer>
 
 <!-- jQuery library -->
-<!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 <!-- JavaScript file -->
-<!-- <script type="text/javascript" src="./scripts/script.js"> -->
+<script type="text/javascript" src="./scripts/script.js"></script>
 
 </body>
 </html>
