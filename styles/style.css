@@ -17,6 +17,11 @@
   --c-lneutral: #fee2dc;
 }
 
+a:hover { 
+  color: var(--c--yellow) !important; 
+} */
+
+/*
 html {
   scroll-behavior: smooth;
 }
@@ -161,7 +166,7 @@ legend {
   border-top: 2px white solid;
   border-bottom: 2px white solid;
   /* border: solid green 2px; */
-} */
+
 
 /* FlexboxBody; FlexboxFooter; Flexbox.contact-container */
 /* .contact-container {
