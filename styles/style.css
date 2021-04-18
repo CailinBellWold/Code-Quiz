@@ -1,4 +1,4 @@
-/* *,
+*,
 *::before,
 *::after {
 }
@@ -17,6 +17,14 @@
   --c-lneutral: #fee2dc;
 }
 
+.custom-color-o {
+  color: var(--c-yellow);
+}
+
+.custom-bg-color-n {
+  background-color: var(--c-lneutral);
+}
+/* 
 a:hover { 
   color: var(--c--yellow) !important; 
 } */

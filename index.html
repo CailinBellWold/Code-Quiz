@@ -11,7 +11,7 @@
     <!--Stylesheets-->
     <link rel="stylesheet" href="styles/jass.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
-    <!-- <link rel="stylesheet" href="styles/style.css"> -->
+    <link rel="stylesheet" href="styles/style.css">
     <!--Fonts-->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Poppins:wght@200;300&display=swap" rel="stylesheet">
@@ -25,13 +25,6 @@
 
 <body>
     <header>
-
-        <!--NavBar-->
-        <!-- <nav class="navbar bg-dark navbar-dark text-white fixed-top">
-            <ul class="navbar-nav ml-auto">
-                <li><a class="nav-item high-scores-ID">High Score</a></li>
-            </ul>
-        </nav>  -->
         <!--Jumbotron-->
         <div class="jumbotron jumbotron-fluid bg-dark text-light">
             <div class="container">
@@ -55,10 +48,10 @@
             <!-- Quiz Modal -->
             <div class="modal fade" id="quizModal">
                 <div class="modal-dialog modal-dialog-centered modal-lg">
-                    <div class="modal-content">
+                    <div class="modal-content sp-3">
 
                         <!-- Quiz Modal: Header-->
-                        <div class="modal-header">
+                        <div class="modal-header custom-bg-color-n">
                             <h4 class="modal-title">Code Quiz: Javascript</h4>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
@@ -66,28 +59,46 @@
                         <!-- Quiz Modal: Body-->
                         <div class="modal-body">
                             <form class="quiz">
-                                <!--TO DO: Get Legend to work with answers grouped below. Need the same name.-->
-                                <legend>Select One</legend>
+                                <h4 class="pb-3 custom-color-o">Question: <span id="question" class="font-weight-normal text-dark"></span></h4>
+                                
+                                    
+                                <legend class="col-12 border-bottom text-align-center">Select One</legend>
+                                <div class="pl-3">
+                                <fieldset>
+                                <ul class="list-unstyled font-weight-bold">
+                                    <li>
+                                        <input type="radio" name="choices" value="a"></input>
+                                        <label for="choice-A">A. <span id="choice-A" class="font-weight-normal"></span></label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" name="choices" value="b"></input>
+                                        <label for="choice-B">B. <span id="choice-B" class="font-weight-normal"></span></label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" name="choices" value="c"></input>
+                                        <label for="choice-C font-weight-bold">C. <span id="choice-C" class="font-weight-normal"></span></label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" name="choices" value="d"></input>
+                                        <label for="choice-D font-weight-bold">D. <span id="choice-D" class="font-weight-normal"></span></label>
+                                    </li>
+                                </ul>
+                                </fieldset>
+                            </div>
                             </form>
-                            <div class="results"></div>
                         </div>
 
-                        <!--Progress Bar-->
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-striped progress-bar-animated" style="width:70%"></div>
-                        </div>
+                        <div class="results"></div>
 
                         <!-- Quiz Modal: Footer-->
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary next" tabindex=5>Next Question</button>
-                            <button type="submit" class="btn btn-primary submit" tabindex=5>Submit</button>
-                            <p>Time Remaining: </p><p class="countdown-timer"></p>
+                        <div class="modal-footer justify-content-between">
+                                    <div class="h6">Seconds Remaining: <span id="time"></span></div>
+                                    <button type="submit" class="btn btn-primary" id="next">Next Question</button>
+                                    <button type="submit" class="btn btn-primary" id="submit">Submit</button>
                         </div>
-
                     </div>
                 </div>
             </div>
-
         </section>
 
         <section class="container">
@@ -97,13 +108,11 @@
                 <div class="col-12 col-md-5">
                     <div class="card">
                         <h3 class="card-header">Learning Resources</h3>
-                        <!-- <div class="card-body"> -->
                             <div class="list-group">
                                 <a href="https://www.codecademy.com/learn/introduction-to-javascript" target="_blank" rel="noreferrer noopener" class="list-group-item list-group-item-action">Codecademy</a>
                                 <a href="https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/" target="_blank" rel="noreferrer noopener" class="list-group-item list-group-item-action">FreeCodeCamp</a>
                                 <a href="https://www.w3schools.com/js/DEFAULT.asp" target="_blank" rel="noreferrer noopener" class="list-group-item list-group-item-action"><h6>W3 Schools</h6> <p>The World's Largest Code Development Site</p></a>
                             </div>
-                        <!-- </div> -->
                     </div>
                 </div>
             
