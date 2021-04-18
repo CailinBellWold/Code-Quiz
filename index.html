@@ -30,11 +30,14 @@
             <div class="container">
                 <div class="row align-items-end">
                     <div class="col-12 col-md-5">
+                        <!--Logo-->
                         <img class="img-fluid" src="./images/Code-Quiz-Logo.png" >
                     </div>
                     <div class="col-12 col-md-7">
+                    <!--Header/Welcome-->
                     <h1>Welcome to Code Quiz!</h1>
                         <p> As a budding web-developer, you may want to check your skills to identify areas of challenge or to build confidence around your nascent skills. This quiz is designed to... !</p>
+                        <!--Let's Begin Button-->
                         <button type="button" class="btn btn-primary begin" data-toggle="modal" data-target="#quizModal">Let's Begin</button>
                     </div>
                 </div>
@@ -59,43 +62,78 @@
                         <!-- Quiz Modal: Body-->
                         <div class="modal-body">
                             <form class="quiz">
-                                <h4 class="pb-3 custom-color-o">Question: <span id="question" class="font-weight-normal text-dark"></span></h4>
-                                
-                                    
-                                <legend class="col-12 border-bottom text-align-center">Select One</legend>
-                                <div class="pl-3">
-                                <fieldset>
-                                <ul class="list-unstyled font-weight-bold">
-                                    <li>
-                                        <input type="radio" name="choices" value="a"></input>
-                                        <label for="choice-A">A. <span id="choice-A" class="font-weight-normal"></span></label>
-                                    </li>
-                                    <li>
-                                        <input type="radio" name="choices" value="b"></input>
-                                        <label for="choice-B">B. <span id="choice-B" class="font-weight-normal"></span></label>
-                                    </li>
-                                    <li>
-                                        <input type="radio" name="choices" value="c"></input>
-                                        <label for="choice-C font-weight-bold">C. <span id="choice-C" class="font-weight-normal"></span></label>
-                                    </li>
-                                    <li>
-                                        <input type="radio" name="choices" value="d"></input>
-                                        <label for="choice-D font-weight-bold">D. <span id="choice-D" class="font-weight-normal"></span></label>
-                                    </li>
-                                </ul>
-                                </fieldset>
-                            </div>
-                            </form>
-                        </div>
 
-                        <div id="results"></div>
+                                <!--Current Question / Later: Quiz Done Header-->
+                                <h4 class="pb-3 custom-color-o question-label">Question: <span id="question" class="font-weight-normal text-dark"></span></h4>
+                                
+                                <!--Legend-->
+                                <legend class="col-12 border-bottom text-align-center select-label">Select One</legend>
+
+                                <!--Padding-->
+                                <div class="pl-3">
+
+                                <!--Fieldset for Current Answer Choices-->
+                                <fieldset class="fieldset">
+                                    <ul class="list-unstyled font-weight-bold">
+                                        <!--Option A-->
+                                        <li>
+                                            <input type="radio" name="choices" value="a"></input>
+                                            <label for="choice-A">A. <span id="choice-A" class="font-weight-normal"></span></label>
+                                        </li>
+                                        <!--Option B-->
+                                        <li>
+                                            <input type="radio" name="choices" value="b"></input>
+                                            <label for="choice-B">B. <span id="choice-B" class="font-weight-normal"></span></label>
+                                        </li>
+                                        <!--Option C-->
+                                        <li>
+                                            <input type="radio" name="choices" value="c"></input>
+                                            <label for="choice-C font-weight-bold">C. <span id="choice-C" class="font-weight-normal"></span></label>
+                                        </li>
+                                        <!--Option D-->
+                                        <li>
+                                            <input type="radio" name="choices" value="d"></input>
+                                            <label for="choice-D font-weight-bold">D. <span id="choice-D" class="font-weight-normal"></span></label>
+                                        </li>
+                                    </ul>
+                                </fieldset>
+
+                                <!--Fieldset for Entering Name and Displaying Score-->
+                                <fieldset>
+                                    <div class="score-form none">
+
+                                        <!--Name Input-->
+                                        <div class="form-group row">
+                                            <label for="inputName" class="col-2 col-form-label">Name:</label>
+                                            <div class="col-10">
+                                                <input type="text"class="form-control" id="inputName" placeholder="First Last">
+                                            </div>
+                                        </div>
+
+                                        <!--Score (Static) Input-->
+                                        <div class="form-group row">
+                                            <label for="staticScore" class="col-2 col-form-label">Score: </label>
+                                            <div class="col-10">
+                                                <input type="number" readonly class="form-control-plaintext" id="static-score" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                </div>
+                            </form>
+
+                            <!--Correct/Incorrect Feedback-->
+                            <div id="results"></div>
+
+                        </div>
 
                         <!-- Quiz Modal: Footer-->
                         <div class="modal-footer justify-content-between">
-                                    <div class="h6">Seconds Remaining: <span id="time"></span></div>
-                                    <button type="submit" class="btn btn-primary" id="next">Next Question</button>
-                                    <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+                            <div class="h6">Seconds Remaining: <span id="time"></span></div>
+                            <button type="submit" class="btn btn-primary" id="next">Next Question <span id="submit"></span><span id="save"></span></button>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -127,7 +165,6 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Score</th>
-                                    <th scope="col">Date</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -135,31 +172,26 @@
                                     <th scope="row">1</th>
                                     <td>Name1</td>
                                     <td>Score1</td>
-                                    <td>Date1</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">2</th>
                                     <td>Name2</td>
                                     <td>Score2</td>
-                                    <td>Date2</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">3</th>
                                     <td>Name3</td>
                                     <td>Score3</td>
-                                    <td>Date3</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">4</th>
                                     <td>Name4</td>
                                     <td>Score4</td>
-                                    <td>Date4</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">5</th>
                                     <td>Name5</td>
                                     <td>Score5</td>
-                                    <td>Date5</td>
                                 </tr>
                             </tbody>
                         </table>

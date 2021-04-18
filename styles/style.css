@@ -24,6 +24,11 @@
 .custom-bg-color-n {
   background-color: var(--c-lneutral);
 }
+
+.none {
+  display: none;
+}
+
 /* 
 a:hover { 
   color: var(--c--yellow) !important; 

@@ -13,6 +13,11 @@ let quizCurrentChoiceCEl = document.querySelector('#choice-C');
 let quizCurrentChoiceDEl = document.querySelector('#choice-D');
 let quizResultsEl = document.querySelector('#results');
 let quizTimeRemainingEl = document.querySelector('#time');
+let quizQuestionLabelEl = document.querySelector('.question-label')
+let quizSelectLabelEl = document.querySelector('.select-label')
+let quizFieldsetEl = document.querySelector('.fieldset')
+let quizScoreFormEl = document.querySelector('.score-form')
+let quizStaticScoreEl = document.querySelector('#static-score')
 
 // Event Listeners
 btnBegin.addEventListener('click', setTime);
@@ -29,14 +34,19 @@ let currentChoiceD = '';
 let i;
 let score = 0;
 let userName = "";
+// let today = new Date ();
+// let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+// let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+// let dateTime = date+' '+time;
+let dateStamp = + new Date();
 
 let qUserName = ("To save your quiz results, please enter your name and click OK!");
 
 // Timer
-let secondsLeft = 60;
+let secondsLeft = 5;
 
 function setTime() {
-    createQuiz();
+
     // Sets interval in variable
     let timerInterval = setInterval(function() {
     secondsLeft--;
@@ -45,17 +55,16 @@ function setTime() {
     if(secondsLeft === 0) {
         // Stops execution of action at set interval
         clearInterval(timerInterval);
-        // Calls Function to Alert Time's Up
-        sendMessage();
-    };
+        // Alert Time's Up
+        quizTimeRemainingEl.innerHTML = '<div class="font-weight-bold text-danger">Time\'s Up!</div>';
+        quizComplete();
+    }
 
     }, 1000);
+
+    createQuiz();
 };
 
-// Function to Alert user that Time's Up
-function sendMessage() {
-    quizTimeRemainingEl.innerHTML = '<div class="font-weight-bold text-danger">Time\'s Up!</div>';
-}
 
 // Function to Feed Questions to HTML
 function createQuiz() {
@@ -151,9 +160,19 @@ let quizContentLength = quizContent.length;
 
 function scoreQuiz() {
     clearInterval(timerInterval);
-    score = numCorrect/quizContent.length;
-    userName = prompt(qUserName + 'You scored ${numCorrect} out of ${quizContent.length}', ["First Last"]);
+
     //Write User Name and Score to logal storage
+};
+
+function quizComplete() {
+    quizQuestionLabelEl.textContent = "Quiz Complete";
+    quizCurrentQuestionEl.innerHTML = "";
+    quizSelectLabelEl.textContent = "Save Your Score";
+    quizFieldsetEl.innerHTML = "";
+    score = numCorrect/quizContent.length;
+    quizScoreFormEl.style.display = "block";
+    quizStaticScoreEl.value = score;
+    // userName = prompt(qUserName + 'You scored ${numCorrect} out of ${quizContent.length}', ["First Last"]);
 };
 
 function displayResults() {
