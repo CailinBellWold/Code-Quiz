@@ -6,15 +6,17 @@ Create a **deployed** and **functional code quiz** by writing JavaScript that ru
 
 ### Motivation
 
+
 ### Learning Targets
+
 
 ## Core Objectives Met
 
-1. 
-2. 
-3. 
-4. 
-5. 
+1. When the "Let's Begin" button is clicked, a timer starts and the user is presented with a question.
+2. IN PROGRESS: When the user answers a question, they are presented with another question.
+3. IN PROGRESS: If a user answers a question incorrectly, time is subtracted from the clock.
+4. IN PROGRESS: When all questions are answered or the timer reaches zero, the quiz is over.
+5. IN PROGRESS: When the quiz is over, the user can save their initials and score.
 
 ## Screen Shot
 
