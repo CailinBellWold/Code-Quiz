@@ -20,9 +20,6 @@ let quizStaticScoreEl = document.querySelector('#static-score')
 
 let quizChoiceEl = document.getElementsByName("choices");
 
-// let quizChoiceEl = [];
-
-
 // Event Listeners
 btnBegin.addEventListener('click', setTime);
 
@@ -34,7 +31,6 @@ let currentChoiceB = '';
 let currentChoiceC = ''; 
 let currentChoiceD = ''; 
 let i;
-let v;
 let score = 0;
 let userInitials = "";
 
@@ -64,7 +60,7 @@ function setTime() {
 
 // Function to Feed Questions to HTML
 function createQuiz() {
-for (i = 0; i < quizContentLength; i++) { {
+for (i = 0; i < quizContentLength; i++) { 
 
     currentQuestion = quizContent[i].question;
     quizCurrentQuestionEl.innerHTML = currentQuestion;
@@ -81,29 +77,11 @@ for (i = 0; i < quizContentLength; i++) { {
     currentChoiceD = quizContent[i].choices.d;
     quizCurrentChoiceDEl.innerHTML = currentChoiceD;
 
-    
-};
-
-btnModalButton.addEventListener('click', userResponse);
-
-function userResponse() {
-    console.log('clicked');
+btnModalButton.addEventListener('click', scoreQuestion);
 };
 
 // function userResponse() {
-//     if (document.getElementByName('choices').checked) {
-//         console.log(quizChoiceEl.value);
-//     } else {
-//         console.log("EMPTY")
-//     }
-// };
-
-// function userResponse() {
-//     var ele = document.getElementsByName('choices');
-//     for(v = 0; v < ele.length; v++) {
-//         if(ele[v].checked)
-//         console.log(ele[v].value);
-//     }
+//     console.log('clicked');
 // };
 
 function scoreQuestion(event) {
@@ -128,7 +106,7 @@ function scoreQuestion(event) {
         secondsLeft = secondsLeft - penalty;
         quizComplete();
     }
-}};};
+}};
 
 // Question + Answer Array
 let quizContent = [
@@ -203,8 +181,6 @@ function quizComplete() {
     //Write User Name and Score to logal storage
     // storeLocally()
 };
-
-
 
 // renderHighScore();
 
