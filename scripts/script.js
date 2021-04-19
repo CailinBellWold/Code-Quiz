@@ -52,7 +52,7 @@ let currentChoiceValue = '';
 let currentQuestionIndex = 0;
 
 // Timer
-let secondsLeft = 60;
+let secondsLeft = 30;
 let incorrectPenalty = 5;
 
 function setTime() {
@@ -128,7 +128,9 @@ let quizContent = [
 ];
 
 let quizContentLength = quizContent.length;
-let lastQuestion = quizContent.length - 1;
+console.log(quizContentLength);
+let lastQuestion = (quizContentLength -1);
+console.log(lastQuestion);
 
 function createQuiz() {
     displayQuestion();
@@ -136,28 +138,28 @@ function createQuiz() {
 
 // Function to Feed Questions to HTML
 function displayQuestion() {
+    // Question
     currentQuestion = quizContent[currentQuestionIndex].question;
     quizCurrentQuestionEl.innerHTML = currentQuestion;
-
+    // Choice A
     currentChoiceA = quizContent[currentQuestionIndex].choices.a;
     quizCurrentChoiceAEl.innerHTML = currentChoiceA;
-
+    // Choice B
     currentChoiceB = quizContent[currentQuestionIndex].choices.b;
     quizCurrentChoiceBEl.innerHTML = currentChoiceB;
-
+    // Choice C
     currentChoiceC = quizContent[currentQuestionIndex].choices.c;
     quizCurrentChoiceCEl.innerHTML = currentChoiceC;
-
+    // Choice D
     currentChoiceD = quizContent[currentQuestionIndex].choices.d;
     quizCurrentChoiceDEl.innerHTML = currentChoiceD;
-
+    // If last Question, new Button State
     if (buttonState === 'End') {
-        btnModalButton.addEventListener('click', submitQuiz);
+        btnModalButton.addEventListener('click', quizComplete);
     }
 };
 
 function updateCurrentAnswer(event) {
-    console.log(event);
     currentChoiceValue = event.target.value;
 }
 
@@ -169,41 +171,50 @@ function nextQuestion() {
     if (buttonState !== 'End') {
         setInterval(function() {
             displayQuestion();
-        }, 5000);
-}
-
-function scoreQuestion(event) {
-    // IF answered correctly + *not* the last question, THEN numCorrect++, render next question
-    if ((currentChoiceValue == quizContent[currentQuestionIndex].answer) && (quizContent[currentQuestionIndex] < lastQuestion)) {
-        quizResultsEl.innerHTML = '<div class="text-success">Correct!</div>';
-        numCorrect++;
-        // createQuiz();
-    // IF answered incorrectly correctly + *not* the last question, THEN time penalty, render next question
-    } else if ((currentChoiceValue != quizContent[currentQuestionIndex].answer) && (quizContent[currentQuestionIndex] < lastQuestion)) {
-        quizResultsEl.innerHTML = '<div class="text-warning">Incorrect</div>';
-        secondsLeft = secondsLeft - penalty;
-        // createQuiz();
-    // IF answered correctly + the last question, THEN numCorrect++, quiz complete
-    } else if ((currentChoiceValue = quizContent[currentQuestionIndex].answer) && (quizContent[currentQuestionIndex] = lastQuestion)) {
-            quizResultsEl.innerHTML = '<div class="text-success">Correct!</div>';
-            numCorrect++;
-            quizComplete();
-    // IF answered incorrectly + the last question, THEN time penalty, quiz complete
-    } else {
-        quizResultsEl.innerHTML = '<div class="text-warning">Incorrect</div>';
-        secondsLeft = secondsLeft - penalty;
-        quizComplete();
+        }, 1500);
     }
 };
 
-
+function scoreQuestion(event) {
+    // IF answered correctly + *not* the last question, THEN numCorrect++, render next question
+    if ((currentChoiceValue == quizContent[currentQuestionIndex].answer) && (currentQuestionIndex < lastQuestion)) {
+        quizResultsEl.innerHTML = '<div class="text-success">Correct!</div>';
+        numCorrect++;
+        currentQuestionIndex++;
+        displayQuestion();
+        //TO DO: Clear Check-Marks
+        return(event);
+    // IF answered incorrectly + *not* the last question, THEN time penalty, render next question
+    } else if ((currentChoiceValue != quizContent[currentQuestionIndex].answer) && (currentQuestionIndex < lastQuestion)) {
+        quizResultsEl.innerHTML = '<div class="text-warning">Incorrect</div>';
+        secondsLeft = secondsLeft - incorrectPenalty;
+        currentQuestionIndex++;
+        displayQuestion();
+        //TO DO: Clear Check-Marks
+        return(event);
+    // IF answered correctly + last question, THEN numCorrect++, quiz complete
+    } else if ((currentChoiceValue == quizContent[currentQuestionIndex].answer) && (currentQuestionIndex == lastQuestion)) {
+        quizResultsEl.innerHTML = '<div class="text-success">Correct!</div>';
+        numCorrect++;
+        quizComplete();
+        //TO DO: Clear Check-Marks
+        return(event);
+    // IF answered incorrectly + last question, THEN time penalty, quiz complete
+    } else {
+        quizResultsEl.innerHTML = '<div class="text-warning">Incorrect</div>';
+        secondsLeft = secondsLeft - incorrectPenalty;
+        quizComplete();
+        //TO DO: Clear Check-Marks
+        return(event);
+    }
+};
 
 function scoreQuiz() {
     clearInterval(timerInterval);
 };
 
 function quizComplete() {
-    // scoreQuiz();
+    scoreQuiz();
     quizQuestionLabelEl.textContent = "Quiz Complete";
     quizCurrentQuestionEl.innerHTML = "";
     quizSelectLabelEl.textContent = "Save Your Score";
@@ -214,6 +225,7 @@ function quizComplete() {
     //Write User Name and Score to logal storage
     // storeLocally()
 };
+
 
 // renderHighScore();
 
@@ -267,4 +279,4 @@ function quizComplete() {
 // ---------------------------------------------------------------
 $('#myModal').on('shown.bs.modal', function () {
     $('#myInput').trigger('focus')
-});};
+});
