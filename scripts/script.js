@@ -60,26 +60,52 @@ for (let i = 0; i < quizChoiceEls.length; i++) {
 
 // Event Listeners/Modal Button/States
 // Event Listeners/Modal Button/States/Next
-if (buttonState === 'Next') {
-    btnModalButton.addEventListener('click', nextQuestion);
-};
-// Event Listeners/Modal Button/States/Submit
-if (buttonState === 'Submit') {
-    btnModalButton.addEventListener('click', quizComplete);
-};
-// Event Listeners/Modal Button/States/Save
-if (buttonState === 'Save') {
-    btnModalButton.addEventListener('click', function(event) {
-        event.preventDefault();
-        if (userInitialsEl.value) {
-            userInitialsValue = userInitialsEl.value;
-            storeScore();
-        } else {
-            //TO DO: Update This to inner HTML when I get this to run
-            alert("Please Enter Your Initials and Press Save");
+
+function btnModalEventListener() {
+    btnModalButton.addEventListener('click', function() {
+    if (buttonState === 'Next') {
+        nextQuestion();
+    } else if (buttonState === 'Submit') {
+        quizComplete();
+    } else if (buttonState === 'Save') {
+        function storeUserInitialVar(event) {
+            event.preventDefault();
+            if (userInitialsEl.value) {
+                userInitialsValue = userInitialsEl.value;
+                storeScore();
+                return(storeUserInitialVar);
+            } else {
+                //TO DO: Update This to inner HTML when I get this to run
+                alert("Please Enter Your Initials and Press Save");
+            }
         }
-    })
-};  
+    } else {
+        alert("Fix Yo Buttons");
+    }
+});
+return;
+};
+
+// if (buttonState === 'Next') {
+//     btnModalButton.addEventListener('click', nextQuestion);
+// };
+// // Event Listeners/Modal Button/States/Submit
+// if (buttonState === 'Submit') {
+//     btnModalButton.addEventListener('click', quizComplete);
+// };
+// // Event Listeners/Modal Button/States/Save
+// if (buttonState === 'Save') {
+//     btnModalButton.addEventListener('click', function(event) {
+//         event.preventDefault();
+//         if (userInitialsEl.value) {
+//             userInitialsValue = userInitialsEl.value;
+//             storeScore();
+//         } else {
+//             //TO DO: Update This to inner HTML when I get this to run
+//             alert("Please Enter Your Initials and Press Save");
+//         }
+//     })
+// };  
 
 // Button State Functions
 function buttonStatetoSave() {
@@ -128,6 +154,7 @@ let incorrectPenalty = 5;
 
 function setTime() {
     buttonStatetoNext();
+    btnModalEventListener();
     // Sets interval in variable
     timerInterval = setInterval(function() {
     secondsLeft--;
@@ -237,6 +264,7 @@ function nextQuestion() {
     // If Last Question, Update Button State to Submit
     if (currentQuestionIndex === lastQuestion) {
     buttonStatetoSubmit();
+    btnModalEventListener();
     };
     scoreQuestion();
 };
@@ -244,7 +272,7 @@ function nextQuestion() {
 // Function to Determine Value of Checked Radio Button at time of Modal Button Click Event
 function updateCurrentAnswer(event) {
     currentChoiceValue = event.target.value;
-}
+};
 
 // Function to Score Question, Called By Next Question or via Timer Running Out through Quiz Complete function
 function scoreQuestion(event) {
@@ -290,6 +318,7 @@ function scoreQuiz() {
 
 function quizComplete() {
     buttonStatetoSave();
+    btnModalEventListener();
     scoreQuiz();
     quizQuestionLabelEl.textContent = 'Quiz Complete';
     quizCurrentQuestionEl.innerHTML = '';
@@ -299,7 +328,7 @@ function quizComplete() {
     quizResultsEl.innerHTML = '';
     quizTimeRemainingEl.innerHTML = '<div class=""text-uppercase">PAUSED</div>';
 };
-
+console.log(buttonState);
 function storeScore() {
     localStorage.setItem('initials', userInitialsValue);
     localStorage.setItem('score', score);
