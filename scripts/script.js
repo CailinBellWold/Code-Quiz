@@ -52,12 +52,13 @@ let currentChoiceValue = '';
 let currentQuestionIndex = 0;
 
 // Timer
+let timerInterval;
 let secondsLeft = 30;
 let incorrectPenalty = 5;
 
 function setTime() {
     // Sets interval in variable
-    let timerInterval = setInterval(function() {
+    timerInterval = setInterval(function() {
     secondsLeft--;
     quizTimeRemainingEl.innerHTML = secondsLeft;
     if (secondsLeft === 0) {
@@ -128,9 +129,7 @@ let quizContent = [
 ];
 
 let quizContentLength = quizContent.length;
-console.log(quizContentLength);
 let lastQuestion = (quizContentLength -1);
-console.log(lastQuestion);
 
 function createQuiz() {
     displayQuestion();
@@ -165,7 +164,9 @@ function updateCurrentAnswer(event) {
 
 function nextQuestion() {
     scoreQuestion ();
-    if (currentQuestionIndex === quizContent.length - 1) {
+    if (currentQuestionIndex === lastQuestion) {
+        console.log("CQI" + currentQuestionIndex);
+        console.log("LQ" + lastQuestion);
         buttonState = 'End';
     };
     if (buttonState !== 'End') {
@@ -220,9 +221,9 @@ function quizComplete() {
     quizSelectLabelEl.textContent = "Save Your Score";
     quizFieldsetEl.innerHTML = "";
     quizScoreFormEl.style.display = "block";
-    score = numCorrect/quizContent.length;
+    score = numCorrect/quizContentLength * 100;
     quizStaticScoreEl.value = score;
-    //Write User Name and Score to logal storage
+    //Write User Name and Score to local storage
     // storeLocally()
 };
 
