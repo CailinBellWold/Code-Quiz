@@ -81,6 +81,28 @@ if (buttonState === 'Save') {
     })
 };  
 
+// Button State Functions
+function buttonStatetoSave() {
+    buttonState = 'Save';
+    btnModalButtonNextSpan.innerHTML = '';
+    btnModalButtonSubmitSpan.innerHTML = '';
+    btnModalButtonSaveSpan.innerHTML = "Save";
+};
+
+function buttonStatetoSubmit() {
+    buttonState = 'Submit';
+    btnModalButtonNextSpan.innerHTML = '';
+    btnModalButtonSubmitSpan.innerHTML = 'Submit';
+    btnModalButtonSaveSpan.innerHTML = '';
+};
+
+function buttonStatetoNext() {
+    buttonState = 'Next';
+    btnModalButtonNextSpan.innerHTML = 'Next';
+    btnModalButtonSubmitSpan.innerHTML = '';
+    btnModalButtonSaveSpan.innerHTML = '';
+};
+
 // Input + Output
 let numCorrect = 0;
 let score = 0;
@@ -105,15 +127,15 @@ let secondsLeft = 60;
 let incorrectPenalty = 5;
 
 function setTime() {
-    buttonState = 'Next';
+    buttonStatetoNext();
     // Sets interval in variable
     timerInterval = setInterval(function() {
     secondsLeft--;
     quizTimeRemainingEl.innerHTML = secondsLeft;
     if (secondsLeft === 0) {
-        // Stops execution of action at set interval
+        // Stops Checking
         clearInterval(timerInterval);
-        // Alert Time's Up
+        // Alerts "Time's Up"
         quizTimeRemainingEl.innerHTML = '<div class="font-weight-bold text-danger">Time\'s Up!</div>';
         // Runs Quiz Complete Function (Score/Update Text with User Initials Form Entry Field)
         quizComplete();
@@ -212,13 +234,11 @@ function displayQuestion() {
 
 // Function to 1.) Score the question and 2.) Update the button state if last question, Called by Modal Button 
 function nextQuestion() {
-    scoreQuestion ();
-    // If Last Question, New Button State
+    // If Last Question, Update Button State to Submit
     if (currentQuestionIndex === lastQuestion) {
-        buttonState = 'Submit';
-        btnModalButtonNextSpan.innerHTML = "";
-        btnModalButtonSubmitSpan.innerHTML = "Submit Quiz";
+    buttonStatetoSubmit();
     };
+    scoreQuestion();
 };
 
 // Function to Determine Value of Checked Radio Button at time of Modal Button Click Event
@@ -234,7 +254,6 @@ function scoreQuestion(event) {
         numCorrect++;
         currentQuestionIndex++;
         setTimeout(displayQuestion, 2000);
-        // displayQuestion();
         //TO DO: Clear Check-Marks
         return(event);
     // IF answered incorrectly + *not* the last question, THEN time penalty, render next question
@@ -262,44 +281,44 @@ function scoreQuestion(event) {
     }
 };
 
-function storeScore() {
-    localStorage.setItem('initials', userInitialsValue);
-    localStorage.setItem('score', score);
-};
-
 function scoreQuiz() {
     clearInterval(timerInterval);
-    buttonState = 'Save';
+    score = numCorrect/quizContentLength * 100;
+    quizStaticScoreEl.value = score;
+    return;
 };
 
 function quizComplete() {
+    buttonStatetoSave();
     scoreQuiz();
     quizQuestionLabelEl.textContent = 'Quiz Complete';
     quizCurrentQuestionEl.innerHTML = '';
     quizSelectLabelEl.textContent = 'Save Your Score';
     quizFieldsetEl.innerHTML = '';
     quizScoreFormEl.style.display = "block";
-    score = numCorrect/quizContentLength * 100;
-    quizStaticScoreEl.value = score;
     quizResultsEl.innerHTML = '';
     quizTimeRemainingEl.innerHTML = '<div class=""text-uppercase">PAUSED</div>';
-    btnModalButtonSubmitSpan.innerHTML = '';
-    btnModalButtonSaveSpan.innerHTML = "Save";
 };
 
-renderHighScore();
+function storeScore() {
+    localStorage.setItem('initials', userInitialsValue);
+    localStorage.setItem('score', score);
+    renderHighScore();
+};
+
+// renderHighScore();
 
 function renderHighScore() {
     locStoreInitials = localStorage.getItem('initials');
     locStoreScore = localStorage.getItem('score');
 
     if (!locStoreInitials || !locStoreScore) {
-    return;
-    }
-    
-    //TO DO: How to Properly Populate Bootstrap Grid. For now, populate one field.
-    outputHSInitials1.innerHTML = locStoreInitials;
-    outputHSScore1.innerHTML = locStoreScore;
+        return;
+    } else {
+        //TO DO: How to Properly Populate Bootstrap Grid. For now, populate one field.
+        outputHSInitials1.innerHTML = locStoreInitials;
+        outputHSScore1.innerHTML = locStoreScore;
+    };
 };
 
 // Attaches event listener to close button
