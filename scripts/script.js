@@ -5,7 +5,7 @@ let quizContainerEl = document.querySelector('.quiz');
 // Modal/Question and Label
 let quizQuestionLabelEl = document.querySelector('.question-label')
 let quizCurrentQuestionEl = document.querySelector('#question');
-// Modal/Fieldset Label
+// Modal/Legend Label
 let quizSelectLabelEl = document.querySelector('.select-label')
 // Modal/Choices
 let quizChoiceEls = document.getElementsByName("choices");
@@ -21,6 +21,7 @@ let quizTimeRemainingEl = document.querySelector('#time');
 let quizFieldsetEl = document.querySelector('.fieldset')
 //Modal/Score Form
 let quizScoreFormEl = document.querySelector('.score-form')
+let userInitialsEl = document.querySelector('#inputInitials')
 let quizStaticScoreEl = document.querySelector('#static-score')
 
 // Buttons
@@ -28,23 +29,62 @@ let btnBegin = document.querySelector('.begin');
 let btnModalButton = document.querySelector('.modal-button');
 let btnModalClose = document.querySelector('.close');
 let buttonState = 'Next'
-// Modal Button Spans
+
+// Buttons/Modal Button Spans
 let btnModalButtonNextSpan = document.querySelector('#next');
 let btnModalButtonSubmitSpan = document.querySelector('#submit');
 let btnModalButtonSaveSpan = document.querySelector('#save');
 
+// High Score Scoreboard
+// High Score Scoreboard/Initials
+let outputHSInitials1 = document.querySelector('#Initials1');
+let outputHSInitials2 = document.querySelector('#Initials2');
+let outputHSInitials3 = document.querySelector('#Initials3');
+let outputHSInitials4 = document.querySelector('#Initials4');
+let outputHSInitials5 = document.querySelector('#Initials5');
+// High Score Scoreboard/Scores
+let outputHSScore1 = document.querySelector('#Score1');
+let outputHSScore2 = document.querySelector('#Score2');
+let outputHSScore3 = document.querySelector('#Score3');
+let outputHSScore4 = document.querySelector('#Score4');
+let outputHSScore5 = document.querySelector('#Score5');
+
 // Event Listeners
+// Event Listeners/Begin
 btnBegin.addEventListener('click', setTime);
-btnModalButton.addEventListener('click', nextQuestion);
+// Event Listeners/Quiz Choices El
 for (let i = 0; i < quizChoiceEls.length; i++) {
     const currentQuizChoiceEl = quizChoiceEls[i];
     currentQuizChoiceEl.addEventListener('click', updateCurrentAnswer)
 };
 
+// Event Listeners/Modal Button/States
+// Event Listeners/Modal Button/States/Next
+if (buttonState === 'Next') {
+    btnModalButton.addEventListener('click', nextQuestion);
+};
+// Event Listeners/Modal Button/States/Submit
+if (buttonState === 'Submit') {
+    btnModalButton.addEventListener('click', quizComplete);
+};
+// Event Listeners/Modal Button/States/Save
+if (buttonState === 'Save') {
+    btnModalButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        if (userInitialsEl.value) {
+            userInitialsValue = userInitialsEl.value;
+            storeScore();
+        } else {
+            //TO DO: Update This to inner HTML when I get this to run
+            alert("Please Enter Your Initials and Press Save");
+        }
+    })
+};  
+
 // Input + Output
 let numCorrect = 0;
 let score = 0;
-let userInitials = "";
+let userInitialsValue = "";
 let currentQuestion = '';
 let currentChoiceA = ''; 
 let currentChoiceB = ''; 
@@ -53,6 +93,8 @@ let currentChoiceD = '';
 let currentChoiceValue = '';
 let quizContentLength;
 let lastQuestion;
+let locStoreInitials;
+let locStoreScore
 
 // Index
 let currentQuestionIndex = 0;
@@ -63,6 +105,7 @@ let secondsLeft = 60;
 let incorrectPenalty = 5;
 
 function setTime() {
+    buttonState = 'Next';
     // Sets interval in variable
     timerInterval = setInterval(function() {
     secondsLeft--;
@@ -104,7 +147,7 @@ let quizContent = [
     answer: "a"
     },
     {
-    question: "JavaScript is a _____ language",
+    question: "JavaScript is a _____ language.",
         choices: {
         a: "cacophonous",
         b: "zero-index",
@@ -139,6 +182,7 @@ let quizContent = [
 quizContentLength = quizContent.length;
 lastQuestion = (quizContentLength -1);
 
+// Does this need to be its own Function? May rearrange.
 function createQuiz() {
     displayQuestion();
 };
@@ -164,25 +208,17 @@ function displayQuestion() {
     // Choice D
     currentChoiceD = quizContent[currentQuestionIndex].choices.d;
     quizCurrentChoiceDEl.innerHTML = currentChoiceD;
-    // If last Question, new Button State
-    if (buttonState === 'End') {
-        btnModalButton.addEventListener('click', quizComplete);
-    }
 };
 
 // Function to 1.) Score the question and 2.) Update the button state if last question, Called by Modal Button 
 function nextQuestion() {
     scoreQuestion ();
+    // If Last Question, New Button State
     if (currentQuestionIndex === lastQuestion) {
-        buttonState = 'End';
+        buttonState = 'Submit';
         btnModalButtonNextSpan.innerHTML = "";
-        btnModalButtonSubmitSpan.innerHTML = "Submit Quiz"
+        btnModalButtonSubmitSpan.innerHTML = "Submit Quiz";
     };
-    //     if (buttonState !== 'End') {
-    //     setInterval(function() {
-    //         displayQuestion();
-    //     }, 2000);
-    // }
 };
 
 // Function to Determine Value of Checked Radio Button at time of Modal Button Click Event
@@ -220,14 +256,20 @@ function scoreQuestion(event) {
     } else {
         quizResultsEl.innerHTML = '<div class="text-warning h5">Incorrect</div>';
         secondsLeft = secondsLeft - incorrectPenalty;
-        setTimeout(quizComplete, 1500);
+        setTimeout(quizComplete, 2000);
         //TO DO: Clear Check-Marks
         return(event);
     }
 };
 
+function storeScore() {
+    localStorage.setItem('initials', userInitialsValue);
+    localStorage.setItem('score', score);
+};
+
 function scoreQuiz() {
     clearInterval(timerInterval);
+    buttonState = 'Save';
 };
 
 function quizComplete() {
@@ -240,56 +282,25 @@ function quizComplete() {
     score = numCorrect/quizContentLength * 100;
     quizStaticScoreEl.value = score;
     quizResultsEl.innerHTML = '';
-    quizTimeRemainingEl.innerHTML = '<div class=""text-uppercase">Timer Stopped</div>';
+    quizTimeRemainingEl.innerHTML = '<div class=""text-uppercase">PAUSED</div>';
     btnModalButtonSubmitSpan.innerHTML = '';
     btnModalButtonSaveSpan.innerHTML = "Save";
-    //Write User Name and Score to local storage
-    // storeLocally()
 };
 
+renderHighScore();
 
-// renderHighScore();
+function renderHighScore() {
+    locStoreInitials = localStorage.getItem('initials');
+    locStoreScore = localStorage.getItem('score');
 
-// // function displayMessage(type, message) {
-// //   msgDiv.textContent = message;
-// //   msgDiv.setAttribute("class", type);
-// // }
-
-// function renderHighScore() {
-//   var initialsHS = localStorage.getItem("Initials");
-//   var passwordHS = localStorage.getItem("Score");
-
-//   if (!email || !password) {
-//     return;
-//   }
-
-//   userEmailSpan.textContent = email;
-//   userPasswordSpan.textContent = password;
-// }
-
-// signUpButton.addEventListener("click", function(event) {
-//     event.preventDefault();
-  
-//     var email = document.querySelector("#email").value;
-//     var password = document.querySelector("#password").value;
-  
-//     if (email === "") {
-//       displayMessage("error", "Email cannot be blank");
-//     } else if (password === "") {
-//       displayMessage("error", "Password cannot be blank");
-//     } else {
-//       displayMessage("success", "Registered successfully");
-  
-//       localStorage.setItem("email", email);
-//       localStorage.setItem("password", password);
-//       renderLastRegistered();
-//     }
-//   });
-
-// function storeLocally() {
-//     localStorage.setItem("Initials", userInitials);
-//     localStorage.setItem("Score", score);
-// }
+    if (!locStoreInitials || !locStoreScore) {
+    return;
+    }
+    
+    //TO DO: How to Properly Populate Bootstrap Grid. For now, populate one field.
+    outputHSInitials1.innerHTML = locStoreInitials;
+    outputHSScore1.innerHTML = locStoreScore;
+};
 
 // Attaches event listener to close button
 // closeButton.addEventListener("click", resetGame);

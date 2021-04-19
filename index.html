@@ -97,7 +97,7 @@
                                         </li>
                                     </ul>
                                 </fieldset>
-
+                            </div>
                                 <!--Fieldset for Entering Name and Displaying Score-->
                                 <fieldset>
                                     <div class="score-form none">
@@ -106,7 +106,7 @@
                                         <div class="form-group row">
                                             <label for="inputInitials" class="col-2 col-form-label">Initials:</label>
                                             <div class="col-10">
-                                                <input type="text"class="form-control" id="inputInitials" placeholder="">
+                                                <input type="text" class="form-control" id="inputInitials" value="" placeholder="">
                                             </div>
                                         </div>
 
@@ -120,7 +120,7 @@
                                     </div>
                                 </fieldset>
 
-                                </div>
+                                
                             </form>
 
                             <!--Correct/Incorrect Feedback-->
@@ -130,7 +130,7 @@
 
                         <!-- Quiz Modal: Footer-->
                         <div class="modal-footer justify-content-between">
-                            <div class="h6">Seconds Remaining: <span id="time"></span></div>
+                            <div class="h6">Time Remaining: <span class="font-weight-normal text-danger"id="time"></span></div>
                             <button type="submit" class="btn btn-primary modal-button"><span id="next">Next Question</span><span id="submit"></span><span id="save"></span></button>
                         </div>
 
@@ -170,28 +170,28 @@
                             <tbody>
                                 <tr>
                                     <th scope="row">1</th>
-                                    <td>Name1</td>
-                                    <td>Score1</td>
+                                    <td id="Initials1">Initials1</td>
+                                    <td id="Score1">Score1</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">2</th>
-                                    <td>Name2</td>
-                                    <td>Score2</td>
+                                    <td id="Initials2">Initials2</td>
+                                    <td id="Score2">Score2</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">3</th>
-                                    <td>Name3</td>
-                                    <td>Score3</td>
+                                    <td id="Initials3">Initials3</td>
+                                    <td id="Score3">Score3</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">4</th>
-                                    <td>Name4</td>
-                                    <td>Score4</td>
+                                    <td id="Initials4">Initials4</td>
+                                    <td id="Score4">Score4</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">5</th>
-                                    <td>Name5</td>
-                                    <td>Score5</td>
+                                    <td id="Initials5">Initials5</td>
+                                    <td id="Score5">Score5</td>
                                 </tr>
                             </tbody>
                         </table>
