@@ -82,7 +82,7 @@ let quizContent = [
         a: "strongly",
         b: "camel-case",
         c: "weakly",
-        d: "I don't know."
+        d: "I don't know"
         },
     answer: "c"
     },
@@ -92,7 +92,7 @@ let quizContent = [
         a: "var, let, const",
         b: "and, or, not",
         c: "if, else, else if",
-        d: "I don't know."
+        d: "I don't know"
         },
     answer: "a"
     },
@@ -102,7 +102,7 @@ let quizContent = [
         a: "cacophonous",
         b: "zero-index",
         c: "spoken",
-        d: "I don't know."
+        d: "I don't know"
         },
     answer: "b"
     },
@@ -112,7 +112,7 @@ let quizContent = [
         a: "Python, React",
         b: "HTML, CSS",
         c: "Vue, Java",
-        d: "I don't know."
+        d: "I don't know"
         },
     answer: "b"
     },
@@ -122,7 +122,7 @@ let quizContent = [
         a: "js",
         b: "scripting",
         c: "script",
-        d: "I don't know."
+        d: "I don't know"
         },
     answer: "c"
     },
