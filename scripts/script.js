@@ -73,7 +73,7 @@ function btnModalEventListener() {
             if (userInitialsEl.value) {
                 userInitialsValue = userInitialsEl.value;
                 storeScore();
-                return(storeUserInitialVar);
+                // return(event);
             } else {
                 //TO DO: Update This to inner HTML when I get this to run
                 alert("Please Enter Your Initials and Press Save");
@@ -83,7 +83,6 @@ function btnModalEventListener() {
         alert("Fix Yo Buttons");
     }
 });
-return;
 };
 
 // if (buttonState === 'Next') {
@@ -327,8 +326,11 @@ function quizComplete() {
     quizScoreFormEl.style.display = "block";
     quizResultsEl.innerHTML = '';
     quizTimeRemainingEl.innerHTML = '<div class=""text-uppercase">PAUSED</div>';
+    console.log(buttonState);
 };
-console.log(buttonState);
+
+
+
 function storeScore() {
     localStorage.setItem('initials', userInitialsValue);
     localStorage.setItem('score', score);
