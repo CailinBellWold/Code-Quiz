@@ -20,7 +20,7 @@ Create a **deployed** and **functional code quiz** by writing JavaScript that ru
 
 ## Screen Shot
 
-![My code quiz, including questions, options, and timer.](./assets/images/Code-Quiz-Screenshot1.png) 
+![My code quiz, including questions, options, and timer.](./images/Code-Quiz-Screenshot1.png) 
 
 ## Deployed Application
 
