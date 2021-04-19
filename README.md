@@ -16,7 +16,7 @@ This exercise encompassed building a JavaScript page using Bootstrap, increasing
 2. When the user answers a question, they are presented with another question.
 3. If a user answers a question incorrectly, time is subtracted from the clock.
 4. When all questions are answered or the timer reaches zero, the quiz is over.
-5. IN PROGRESS: When the quiz is over, the user can save their initials and score.
+5. When the quiz is over, the user can save their initials and score.
 
 ## Screen Shot
 
