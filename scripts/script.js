@@ -84,7 +84,11 @@ for (i = 0; i < quizContentLength; i++) { {
     
 };
 
-btnModalButton.addEventListener('click', userResponse());
+btnModalButton.addEventListener('click', userResponse);
+
+function userResponse() {
+    console.log('clicked');
+};
 
 // function userResponse() {
 //     if (document.getElementByName('choices').checked) {
@@ -94,13 +98,13 @@ btnModalButton.addEventListener('click', userResponse());
 //     }
 // };
 
-function userResponse() {
-    var ele = document.getElementsByName('choices');
-    for(v = 0; v < ele.length; v++) {
-        if(ele[v].checked)
-        console.log(ele[v].value);
-    }
-};
+// function userResponse() {
+//     var ele = document.getElementsByName('choices');
+//     for(v = 0; v < ele.length; v++) {
+//         if(ele[v].checked)
+//         console.log(ele[v].value);
+//     }
+// };
 
 function scoreQuestion(event) {
     // IF answered correctly + *not* the last question THEN numCorrect++, render next question
