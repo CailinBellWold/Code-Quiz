@@ -28,6 +28,10 @@ let btnBegin = document.querySelector('.begin');
 let btnModalButton = document.querySelector('.modal-button');
 let btnModalClose = document.querySelector('.close');
 let buttonState = 'Next'
+// Modal Button Spans
+let btnModalButtonNextSpan = document.querySelector('#next');
+let btnModalButtonSubmitSpan = document.querySelector('#submit');
+let btnModalButtonSaveSpan = document.querySelector('#save');
 
 // Event Listeners
 btnBegin.addEventListener('click', setTime);
@@ -47,13 +51,15 @@ let currentChoiceB = '';
 let currentChoiceC = ''; 
 let currentChoiceD = ''; 
 let currentChoiceValue = '';
+let quizContentLength;
+let lastQuestion;
 
 // Index
 let currentQuestionIndex = 0;
 
-// Timer
+// Timer (First Function Called)
 let timerInterval;
-let secondsLeft = 30;
+let secondsLeft = 60;
 let incorrectPenalty = 5;
 
 function setTime() {
@@ -66,6 +72,7 @@ function setTime() {
         clearInterval(timerInterval);
         // Alert Time's Up
         quizTimeRemainingEl.innerHTML = '<div class="font-weight-bold text-danger">Time\'s Up!</div>';
+        // Runs Quiz Complete Function (Score/Update Text with User Initials Form Entry Field)
         quizComplete();
     };
     }, 1000);
@@ -128,8 +135,9 @@ let quizContent = [
     },
 ];
 
-let quizContentLength = quizContent.length;
-let lastQuestion = (quizContentLength -1);
+// Assigns Var Values for Brevity in Later Functions
+quizContentLength = quizContent.length;
+lastQuestion = (quizContentLength -1);
 
 function createQuiz() {
     displayQuestion();
@@ -137,6 +145,10 @@ function createQuiz() {
 
 // Function to Feed Questions to HTML
 function displayQuestion() {
+
+    // Clears Previous Result Feedback
+    quizResultsEl.innerHTML = "";
+
     // Question
     currentQuestion = quizContent[currentQuestionIndex].question;
     quizCurrentQuestionEl.innerHTML = currentQuestion;
@@ -158,53 +170,57 @@ function displayQuestion() {
     }
 };
 
+// Function to 1.) Score the question and 2.) Update the button state if last question, Called by Modal Button 
+function nextQuestion() {
+    scoreQuestion ();
+    if (currentQuestionIndex === lastQuestion) {
+        buttonState = 'End';
+        btnModalButtonNextSpan.innerHTML = "";
+        btnModalButtonSubmitSpan.innerHTML = "Submit Quiz"
+    };
+    //     if (buttonState !== 'End') {
+    //     setInterval(function() {
+    //         displayQuestion();
+    //     }, 2000);
+    // }
+};
+
+// Function to Determine Value of Checked Radio Button at time of Modal Button Click Event
 function updateCurrentAnswer(event) {
     currentChoiceValue = event.target.value;
 }
 
-function nextQuestion() {
-    scoreQuestion ();
-    if (currentQuestionIndex === lastQuestion) {
-        console.log("CQI" + currentQuestionIndex);
-        console.log("LQ" + lastQuestion);
-        buttonState = 'End';
-    };
-    if (buttonState !== 'End') {
-        setInterval(function() {
-            displayQuestion();
-        }, 1500);
-    }
-};
-
+// Function to Score Question, Called By Next Question or via Timer Running Out through Quiz Complete function
 function scoreQuestion(event) {
     // IF answered correctly + *not* the last question, THEN numCorrect++, render next question
     if ((currentChoiceValue == quizContent[currentQuestionIndex].answer) && (currentQuestionIndex < lastQuestion)) {
-        quizResultsEl.innerHTML = '<div class="text-success">Correct!</div>';
+        quizResultsEl.innerHTML = '<div class="text-success h5">Correct!</div>';
         numCorrect++;
         currentQuestionIndex++;
-        displayQuestion();
+        setTimeout(displayQuestion, 2000);
+        // displayQuestion();
         //TO DO: Clear Check-Marks
         return(event);
     // IF answered incorrectly + *not* the last question, THEN time penalty, render next question
     } else if ((currentChoiceValue != quizContent[currentQuestionIndex].answer) && (currentQuestionIndex < lastQuestion)) {
-        quizResultsEl.innerHTML = '<div class="text-warning">Incorrect</div>';
+        quizResultsEl.innerHTML = '<div class="text-warning h5">Incorrect</div>';
         secondsLeft = secondsLeft - incorrectPenalty;
         currentQuestionIndex++;
-        displayQuestion();
+        setTimeout(displayQuestion, 2000);
         //TO DO: Clear Check-Marks
         return(event);
     // IF answered correctly + last question, THEN numCorrect++, quiz complete
     } else if ((currentChoiceValue == quizContent[currentQuestionIndex].answer) && (currentQuestionIndex == lastQuestion)) {
-        quizResultsEl.innerHTML = '<div class="text-success">Correct!</div>';
+        quizResultsEl.innerHTML = '<div class="text-success h5">Correct!</div>';
         numCorrect++;
-        quizComplete();
+        setTimeout(quizComplete, 2000);
         //TO DO: Clear Check-Marks
         return(event);
     // IF answered incorrectly + last question, THEN time penalty, quiz complete
     } else {
-        quizResultsEl.innerHTML = '<div class="text-warning">Incorrect</div>';
+        quizResultsEl.innerHTML = '<div class="text-warning h5">Incorrect</div>';
         secondsLeft = secondsLeft - incorrectPenalty;
-        quizComplete();
+        setTimeout(quizComplete, 1500);
         //TO DO: Clear Check-Marks
         return(event);
     }
@@ -216,13 +232,17 @@ function scoreQuiz() {
 
 function quizComplete() {
     scoreQuiz();
-    quizQuestionLabelEl.textContent = "Quiz Complete";
-    quizCurrentQuestionEl.innerHTML = "";
-    quizSelectLabelEl.textContent = "Save Your Score";
-    quizFieldsetEl.innerHTML = "";
+    quizQuestionLabelEl.textContent = 'Quiz Complete';
+    quizCurrentQuestionEl.innerHTML = '';
+    quizSelectLabelEl.textContent = 'Save Your Score';
+    quizFieldsetEl.innerHTML = '';
     quizScoreFormEl.style.display = "block";
     score = numCorrect/quizContentLength * 100;
     quizStaticScoreEl.value = score;
+    quizResultsEl.innerHTML = '';
+    quizTimeRemainingEl.innerHTML = '<div class=""text-uppercase">Timer Stopped</div>';
+    btnModalButtonSubmitSpan.innerHTML = '';
+    btnModalButtonSaveSpan.innerHTML = "Save";
     //Write User Name and Score to local storage
     // storeLocally()
 };
@@ -265,9 +285,6 @@ function quizComplete() {
 //       renderLastRegistered();
 //     }
 //   });
-
-
-
 
 // function storeLocally() {
 //     localStorage.setItem("Initials", userInitials);

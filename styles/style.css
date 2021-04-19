@@ -9,6 +9,7 @@
   --c-lblue: #4a4e69;
   --c-llgrey: #9295a5;
   --c-yellow: #f95738;
+  --c-lyellow: #fca392;
   --c-red: #c9ada7;
   --c-red2: #f2e9e4;
   --c-lgrey: #a6808c;
@@ -23,6 +24,15 @@
 
 .custom-bg-color-n {
   background-color: var(--c-lneutral);
+}
+
+.custom-bg-color-o {
+  background-color: var(--c-yellow);
+
+}
+
+.custom-bg-color-o:hover {
+  background-color: var(--c-lyellow);
 }
 
 .none {
