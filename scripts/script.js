@@ -57,10 +57,7 @@ for (let i = 0; i < quizChoiceEls.length; i++) {
     const currentQuizChoiceEl = quizChoiceEls[i];
     currentQuizChoiceEl.addEventListener('click', updateCurrentAnswer)
 };
-
 // Event Listeners/Modal Button/States
-// Event Listeners/Modal Button/States/Next
-
 function btnModalEventListener() {
     btnModalButton.addEventListener('click', function() {
     if (buttonState === 'Next') {
@@ -328,8 +325,6 @@ function quizComplete() {
     quizTimeRemainingEl.innerHTML = '<div class=""text-uppercase">PAUSED</div>';
     console.log(buttonState);
 };
-
-
 
 function storeScore() {
     localStorage.setItem('initials', userInitialsValue);
