@@ -59,14 +59,15 @@ for (let i = 0; i < quizChoiceEls.length; i++) {
 };
 // Event Listeners/Modal Button/States
 function btnModalEventListener() {
-    btnModalButton.addEventListener('click', function() {
+    btnModalButton.addEventListener('click', function(event) {
     if (buttonState === 'Next') {
         nextQuestion();
     } else if (buttonState === 'Submit') {
         quizComplete();
     } else if (buttonState === 'Save') {
+        event.preventDefault();
+        storeUserInitialVar();
         function storeUserInitialVar(event) {
-            event.preventDefault();
             if (userInitialsEl.value) {
                 userInitialsValue = userInitialsEl.value;
                 storeScore();
