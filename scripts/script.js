@@ -1,8 +1,7 @@
 // Buttons
 let btnBegin = document.querySelector('.begin');
-let btnNextQuestion = document.querySelector('#next');
-let btnSubmit = document.querySelector('#submit');
-let btnClose = document.querySelector('.close');
+let btnModalButton = document.querySelector('.modal-button');
+let btnModalClose = document.querySelector('.close');
 
 // Content Areas
 let quizContainerEl = document.querySelector('.quiz');
@@ -19,31 +18,29 @@ let quizFieldsetEl = document.querySelector('.fieldset')
 let quizScoreFormEl = document.querySelector('.score-form')
 let quizStaticScoreEl = document.querySelector('#static-score')
 
+let quizChoiceEl = document.getElementsByName("choices");
+
+// let quizChoiceEl = [];
+
+
 // Event Listeners
 btnBegin.addEventListener('click', setTime);
-btnSubmit.addEventListener('click', displayResults);
 
 // Input + Output
 let numCorrect = 0;
-// let lastQuestion = quizContent.length - 1;
 let currentQuestion = '';
 let currentChoiceA = ''; 
 let currentChoiceB = ''; 
 let currentChoiceC = ''; 
 let currentChoiceD = ''; 
 let i;
+let v;
 let score = 0;
-let userName = "";
-// let today = new Date ();
-// let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-// let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-// let dateTime = date+' '+time;
-let dateStamp = + new Date();
-
-let qUserName = ("To save your quiz results, please enter your name and click OK!");
+let userInitials = "";
 
 // Timer
-let secondsLeft = 5;
+let secondsLeft = 60;
+let incorrectPenalty = 5;
 
 function setTime() {
 
@@ -65,10 +62,9 @@ function setTime() {
     createQuiz();
 };
 
-
 // Function to Feed Questions to HTML
 function createQuiz() {
-for (i = 0; i < quizContentLength; i++) {
+for (i = 0; i < quizContentLength; i++) { {
 
     currentQuestion = quizContent[i].question;
     quizCurrentQuestionEl.innerHTML = currentQuestion;
@@ -85,22 +81,50 @@ for (i = 0; i < quizContentLength; i++) {
     currentChoiceD = quizContent[i].choices.d;
     quizCurrentChoiceDEl.innerHTML = currentChoiceD;
 
-    btnNextQuestion.addEventListener('click', scoreQuestion);
+    
 };
 
-function scoreQuestion() {
-    if (value = quizContent[i].answer) {
+btnModalButton.addEventListener('click', userResponse());
+
+// function userResponse() {
+//     if (document.getElementByName('choices').checked) {
+//         console.log(quizChoiceEl.value);
+//     } else {
+//         console.log("EMPTY")
+//     }
+// };
+
+function userResponse() {
+    var ele = document.getElementsByName('choices');
+    for(v = 0; v < ele.length; v++) {
+        if(ele[v].checked)
+        console.log(ele[v].value);
+    }
+};
+
+function scoreQuestion(event) {
+    // IF answered correctly + *not* the last question THEN numCorrect++, render next question
+    if ((quizChoiceEl.checked.value == quizContent[i].answer) && (quizContent[i] < lastQuestion)) {
         quizResultsEl.innerHTML = '<div class="text-success">Correct!</div>';
         numCorrect++;
-        i++;
-        createQuiz();
+        // createQuiz();
+    // IF answered incorrectly correctly + *not* the last question THEN time penalty, render next question
+    } else if ((event.target.value != quizContent[i].answer) && (quizContent[i] < lastQuestion)) {
+        quizResultsEl.innerHTML = '<div class="text-warning">Incorrect</div>';
+        secondsLeft = secondsLeft - penalty;
+        // createQuiz();
+    // IF answered correctly + the last question THEN numCorrect++, quiz complete
+    } else if ((event.target.value = quizContent[i].answer) && (quizContent[i] = lastQuestion)) {
+            quizResultsEl.innerHTML = '<div class="text-success">Correct!</div>';
+            numCorrect++;
+            quizComplete();
+    // IF answered incorrectly + the last question THEN time penalty, quiz complete
     } else {
-    quizResultsEl.innerHTML = '<div class="text-warning">Incorrect</div>';
-    timerCount--;
-    i++;
-    createQuiz();
-};
-};};
+        quizResultsEl.innerHTML = '<div class="text-warning">Incorrect</div>';
+        secondsLeft = secondsLeft - penalty;
+        quizComplete();
+    }
+}};};
 
 // Question + Answer Array
 let quizContent = [
@@ -157,39 +181,72 @@ let quizContent = [
 ];
 
 let quizContentLength = quizContent.length;
+let lastQuestion = quizContent.length - 1;
 
 function scoreQuiz() {
     clearInterval(timerInterval);
-
-    //Write User Name and Score to logal storage
 };
 
 function quizComplete() {
+    // scoreQuiz();
     quizQuestionLabelEl.textContent = "Quiz Complete";
     quizCurrentQuestionEl.innerHTML = "";
     quizSelectLabelEl.textContent = "Save Your Score";
     quizFieldsetEl.innerHTML = "";
-    score = numCorrect/quizContent.length;
     quizScoreFormEl.style.display = "block";
+    score = numCorrect/quizContent.length;
     quizStaticScoreEl.value = score;
-    // userName = prompt(qUserName + 'You scored ${numCorrect} out of ${quizContent.length}', ["First Last"]);
+    //Write User Name and Score to logal storage
+    // storeLocally()
 };
 
-function displayResults() {
-        quizContent.forEach((currentQuestion, questionNumber) => {
-        const answerContainer = answerContainers[questionNumber];
-        const selector = `input[name=question${questionNumber}]:checked`;
-        const userAnswer = (answerContainer.querySelector(selector) || {}).value;
-        if (userAnswer === currentQuestion.answer) {
-            numCorrect++;
-        }
-        else {
-            answerContainers[questionNumber].style.color = 'red';
-        }
-        });
 
-        resultsContainer.innerHTML = `${numCorrect} out of ${quizContent.length}`;
-};
+
+// renderHighScore();
+
+// // function displayMessage(type, message) {
+// //   msgDiv.textContent = message;
+// //   msgDiv.setAttribute("class", type);
+// // }
+
+// function renderHighScore() {
+//   var initialsHS = localStorage.getItem("Initials");
+//   var passwordHS = localStorage.getItem("Score");
+
+//   if (!email || !password) {
+//     return;
+//   }
+
+//   userEmailSpan.textContent = email;
+//   userPasswordSpan.textContent = password;
+// }
+
+// signUpButton.addEventListener("click", function(event) {
+//     event.preventDefault();
+  
+//     var email = document.querySelector("#email").value;
+//     var password = document.querySelector("#password").value;
+  
+//     if (email === "") {
+//       displayMessage("error", "Email cannot be blank");
+//     } else if (password === "") {
+//       displayMessage("error", "Password cannot be blank");
+//     } else {
+//       displayMessage("success", "Registered successfully");
+  
+//       localStorage.setItem("email", email);
+//       localStorage.setItem("password", password);
+//       renderLastRegistered();
+//     }
+//   });
+
+
+
+
+// function storeLocally() {
+//     localStorage.setItem("Initials", userInitials);
+//     localStorage.setItem("Score", score);
+// }
 
 // Attaches event listener to close button
 // closeButton.addEventListener("click", resetGame);
