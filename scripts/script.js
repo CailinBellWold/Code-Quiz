@@ -1,5 +1,7 @@
 // Content Areas
 
+// Modal
+let quizModal = document.querySelector('#quizModal');
 // Modal/Quiz
 let quizContainerEl = document.querySelector('.quiz');
 // Modal/Question and Label
@@ -61,7 +63,7 @@ for (let i = 0; i < quizChoiceEls.length; i++) {
 function btnModalEventListener() {
     btnModalButton.addEventListener('click', function(event) {
     if (buttonState === 'Next') {
-        nextQuestion();
+        scoreQuestion();
     } else if (buttonState === 'Submit') {
         quizComplete();
     } else if (buttonState === 'Save') {
@@ -82,27 +84,6 @@ function btnModalEventListener() {
     }
 });
 };
-
-// if (buttonState === 'Next') {
-//     btnModalButton.addEventListener('click', nextQuestion);
-// };
-// // Event Listeners/Modal Button/States/Submit
-// if (buttonState === 'Submit') {
-//     btnModalButton.addEventListener('click', quizComplete);
-// };
-// // Event Listeners/Modal Button/States/Save
-// if (buttonState === 'Save') {
-//     btnModalButton.addEventListener('click', function(event) {
-//         event.preventDefault();
-//         if (userInitialsEl.value) {
-//             userInitialsValue = userInitialsEl.value;
-//             storeScore();
-//         } else {
-//             //TO DO: Update This to inner HTML when I get this to run
-//             alert("Please Enter Your Initials and Press Save");
-//         }
-//     })
-// };  
 
 // Button State Functions
 function buttonStatetoSave() {
@@ -238,7 +219,7 @@ function displayQuestion() {
 
     // Clears Previous Result Feedback
     quizResultsEl.innerHTML = "";
-
+    
     // Question
     currentQuestion = quizContent[currentQuestionIndex].question;
     quizCurrentQuestionEl.innerHTML = currentQuestion;
@@ -254,17 +235,18 @@ function displayQuestion() {
     // Choice D
     currentChoiceD = quizContent[currentQuestionIndex].choices.d;
     quizCurrentChoiceDEl.innerHTML = currentChoiceD;
+
+        // If Last Question, Update Button State to Submit
+        if (currentQuestionIndex === lastQuestion) {
+            buttonStatetoSubmit();
+            btnModalEventListener();
+            };
 };
 
 // Function to 1.) Score the question and 2.) Update the button state if last question, Called by Modal Button 
-function nextQuestion() {
-    // If Last Question, Update Button State to Submit
-    if (currentQuestionIndex === lastQuestion) {
-    buttonStatetoSubmit();
-    btnModalEventListener();
-    };
-    scoreQuestion();
-};
+// function nextQuestion() {
+//     scoreQuestion();
+// };
 
 // Function to Determine Value of Checked Radio Button at time of Modal Button Click Event
 function updateCurrentAnswer(event) {
@@ -314,8 +296,6 @@ function scoreQuiz() {
 };
 
 function quizComplete() {
-    buttonStatetoSave();
-    btnModalEventListener();
     scoreQuiz();
     quizQuestionLabelEl.textContent = 'Quiz Complete';
     quizCurrentQuestionEl.innerHTML = '';
@@ -324,7 +304,8 @@ function quizComplete() {
     quizScoreFormEl.style.display = "block";
     quizResultsEl.innerHTML = '';
     quizTimeRemainingEl.innerHTML = '<div class=""text-uppercase">PAUSED</div>';
-    console.log(buttonState);
+    buttonStatetoSave();
+    btnModalEventListener();
 };
 
 function storeScore() {
@@ -333,8 +314,6 @@ function storeScore() {
     renderHighScore();
 };
 
-// renderHighScore();
-
 function renderHighScore() {
     locStoreInitials = localStorage.getItem('initials');
     locStoreScore = localStorage.getItem('score');
@@ -342,14 +321,19 @@ function renderHighScore() {
     if (!locStoreInitials || !locStoreScore) {
         return;
     } else {
-        //TO DO: How to Properly Populate Bootstrap Grid. For now, populate one field.
+        //TO DO: Properly Populate Bootstrap Grid. For now, populate one field.
         outputHSInitials1.innerHTML = locStoreInitials;
         outputHSScore1.innerHTML = locStoreScore;
     };
+
+
+    closeModal();
 };
 
-// Attaches event listener to close button
-// closeButton.addEventListener("click", resetGame);
+function closeModal() {
+    quizModal.style.display = "none";
+    // $('#quizModal').modal('hide');
+};
 
 // ---------------------------------------------------------------
 $('#myModal').on('shown.bs.modal', function () {
