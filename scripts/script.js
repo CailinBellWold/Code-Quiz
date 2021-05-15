@@ -239,14 +239,8 @@ function displayQuestion() {
         // If Last Question, Update Button State to Submit
         if (currentQuestionIndex === lastQuestion) {
             buttonStatetoSubmit();
-            btnModalEventListener();
             };
 };
-
-// Function to 1.) Score the question and 2.) Update the button state if last question, Called by Modal Button 
-// function nextQuestion() {
-//     scoreQuestion();
-// };
 
 // Function to Determine Value of Checked Radio Button at time of Modal Button Click Event
 function updateCurrentAnswer(event) {
@@ -292,21 +286,20 @@ function scoreQuiz() {
     clearInterval(timerInterval);
     score = numCorrect/quizContentLength * 100;
     quizStaticScoreEl.value = score;
-    return;
 };
 
 function quizComplete() {
     scoreQuiz();
     quizQuestionLabelEl.textContent = 'Quiz Complete';
-    quizCurrentQuestionEl.innerHTML = '';
+    quizCurrentQuestionEl.textContent = ''; // UPD from inner HTML to textContent
     quizSelectLabelEl.textContent = 'Save Your Score';
-    quizFieldsetEl.innerHTML = '';
+    quizFieldsetEl.textContent = ''; // UPD from inner HTML to textContent
     quizScoreFormEl.style.display = "block";
-    quizResultsEl.innerHTML = '';
-    quizTimeRemainingEl.innerHTML = '<div class=""text-uppercase">PAUSED</div>';
+    quizResultsEl.textContent = ''; // UPD from inner HTML to textContent
+    quizTimeRemainingEl.innerHTML = '<div class=""text-uppercase">PAUSED</div>'; //QUESTION: Is there a better way to do this that doesn't use inner HTML
     buttonStatetoSave();
-    btnModalEventListener();
 };
+
 
 function storeScore() {
     localStorage.setItem('initials', userInitialsValue);
@@ -325,7 +318,6 @@ function renderHighScore() {
         outputHSInitials1.innerHTML = locStoreInitials;
         outputHSScore1.innerHTML = locStoreScore;
     };
-
 
     closeModal();
 };

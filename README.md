@@ -18,6 +18,11 @@ This exercise encompassed building a JavaScript page using Bootstrap, increasing
 4. When all questions are answered or the timer reaches zero, the quiz is over.
 5. When the quiz is over, the user can save their initials and score.
 
+## Technologies Used
+
+* Programming Languages: HTML, CSS and JavaScript
+* Libraries: Bootstrap, jQuery, Google Fonts and Font Awesome
+
 ## Screen Shot
 
 ![My code quiz, including questions, options, and timer.](./images/Code-Quiz-Screenshot01.png) 
@@ -48,4 +53,4 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ## Contact
-For inquiries, please contact contributor [Cailin Bell Wold](https://github.com/CailinBellWold).
+For inquiries, please contact [Cailin Bell Wold](https://github.com/CailinBellWold).
