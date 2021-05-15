@@ -25,18 +25,14 @@ let quizFieldsetEl = document.querySelector('.fieldset')
 let quizScoreFormEl = document.querySelector('.score-form')
 let userInitialsEl = document.querySelector('#inputInitials')
 let quizStaticScoreEl = document.querySelector('#static-score')
-let scoreHistoryArr = [];
+let newScore;
+let scoreHistoryArr;
 
 // Buttons
 let btnBegin = document.querySelector('.begin');
 let btnModalButton = document.querySelector('.modal-button');
 let btnModalClose = document.querySelector('.close');
 let buttonState = 'Next'
-
-// Buttons/Modal Button Spans
-let btnModalButtonNextSpan = document.querySelector('#next');
-let btnModalButtonSubmitSpan = document.querySelector('#submit');
-let btnModalButtonSaveSpan = document.querySelector('#save');
 
 // High Score Scoreboard
 // High Score Scoreboard/Initials
@@ -80,23 +76,17 @@ function btnModalEventListener() {
 // Button State Functions
 function buttonStatetoSave() {
     buttonState = 'Save';
-    btnModalButtonNextSpan.innerHTML = '';
-    btnModalButtonSubmitSpan.innerHTML = '';
-    btnModalButtonSaveSpan.innerHTML = "Save";
+    btnModalButton.textContent = 'Save'
 };
 
 function buttonStatetoSubmit() {
     buttonState = 'Submit';
-    btnModalButtonNextSpan.innerHTML = '';
-    btnModalButtonSubmitSpan.innerHTML = 'Submit';
-    btnModalButtonSaveSpan.innerHTML = '';
+    btnModalButton.textContent = 'Submit'
 };
 
 function buttonStatetoNext() {
     buttonState = 'Next';
-    btnModalButtonNextSpan.innerHTML = 'Next';
-    btnModalButtonSubmitSpan.innerHTML = '';
-    btnModalButtonSaveSpan.innerHTML = '';
+    btnModalButton.textContent = 'Next'
 };
 
 // Input + Output
@@ -265,7 +255,6 @@ function scoreQuestion(event) {
     } else if ((currentChoiceValue == quizContent[currentQuestionIndex].answer) && (currentQuestionIndex == lastQuestion)) {
         quizResultsEl.innerHTML = '<div class="text-success h5">Correct!</div>';
         numCorrect++;
-        console.log(numCorrect);
         setTimeout(quizComplete, 2000);
         //TO DO: Clear Check-Marks
         return(event);
@@ -281,8 +270,8 @@ function scoreQuestion(event) {
 
 function scoreQuiz() {
     clearInterval(timerInterval);
-    score = numCorrect/quizContentLength * 100;
-    quizStaticScoreEl.value = score;
+    newScore = numCorrect/quizContentLength * 100;
+    quizStaticScoreEl.value = newScore;
 };
 
 function quizComplete() {
@@ -300,34 +289,34 @@ function quizComplete() {
 function storeUserInitialVar() {
     if (userInitialsEl.value) {
         userInitialsValue = userInitialsEl.value;
-        storeScore();
-        // createScoreHistory();
+        // storeScore();
+        createScoreHistory();
     } else {
         //TO DO: Update This to inner HTML when I get this to run
         alert("Please Enter Your Initials and Press Save");
     }
 };
 
-// function createScoreHistory(userInitialsValue, score) {
-//     newScore = {
-//         initials: userInitialsValue,
-//         score: score
-//     }
-//     scoreHistoryArr.push(newScore);
-//     localStorage.setItem('scoreHistory', JSON.stringify(newScore));
-//     renderHighScore();
-// }
-
-function storeScore() {
-    localStorage.setItem('initials', userInitialsValue);
-    localStorage.setItem('score', JSON.stringify(score));
+function createScoreHistory(userInitialsValue, newScore) {
+    scoreHistoryArr = JSON.parse(localStorage.getItem('scoreHistory')) || [];
+    let currentScore = {
+        initials: userInitialsValue,
+        score: newScore
+    };
+    scoreHistoryArr.push(currentScore);
+    localStorage.setItem('scoreHistory', JSON.stringify(currentScore));
     renderHighScore();
 };
 
-function renderHighScore() {
-    locStoreInitials = localStorage.getItem('initials');
-    locStoreScore = localStorage.getItem('score');
+// function storeScore() {
+//     localStorage.setItem('initials', JSON.stringify(userInitialsValue));
+//     localStorage.setItem('score', JSON.stringify(newScore));
+//     renderHighScore();
+// };
 
+function renderHighScore() {
+    locStoreInitials = JSON.parse(localStorage.getItem('initials'));
+    locStoreScore = JSON.parse(localStorage.getItem('score'));
     if (!locStoreInitials || !locStoreScore) {
         return;
     } else {
@@ -335,7 +324,6 @@ function renderHighScore() {
         outputHSInitials1.innerHTML = locStoreInitials;
         outputHSScore1.innerHTML = locStoreScore;
     };
-
     closeModal();
 };
 
