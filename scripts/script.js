@@ -130,6 +130,10 @@ let timerInterval;
 let secondsLeft = 60;
 let incorrectPenalty = 5;
 
+function init() {
+    renderHighScore()
+}
+
 function setTime() {
     buttonStatetoNext();
     btnModalEventListener();
@@ -326,6 +330,8 @@ function closeModal() {
     quizModal.style.display = "none";
     // $('#quizModal').modal('hide');
 };
+
+init();
 
 // ---------------------------------------------------------------
 $('#myModal').on('shown.bs.modal', function () {
