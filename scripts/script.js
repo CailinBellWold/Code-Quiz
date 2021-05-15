@@ -26,7 +26,6 @@ let quizScoreFormEl = document.querySelector('.score-form')
 let userInitialsEl = document.querySelector('#inputInitials')
 let quizStaticScoreEl = document.querySelector('#static-score')
 let newScore;
-let scoreHistoryArr;
 
 // Buttons
 let btnBegin = document.querySelector('.begin');
@@ -67,6 +66,7 @@ function btnModalEventListener() {
     } else if (buttonState === 'Save') {
         event.preventDefault();
         storeUserInitialVar();
+        closeModal();
     } else {
         console.log("Fix Your Buttons");
     }
@@ -114,7 +114,7 @@ let incorrectPenalty = 5;
 
 function init() {
     renderHighScore()
-}
+};
 
 function setTime() {
     buttonStatetoNext();
@@ -134,7 +134,7 @@ function setTime() {
     }, 1000);
 
     //Starts Quiz
-    createQuiz();
+    displayQuestion();
 };
 
 // Question + Answer Array
@@ -194,11 +194,6 @@ let quizContent = [
 // Assigns Var Values for Brevity in Later Functions
 quizContentLength = quizContent.length;
 lastQuestion = (quizContentLength -1);
-
-// Does this need to be its own Function? May rearrange.
-function createQuiz() {
-    displayQuestion();
-};
 
 // Function to Feed Questions to HTML
 function displayQuestion() {
@@ -289,7 +284,6 @@ function quizComplete() {
 function storeUserInitialVar() {
     if (userInitialsEl.value) {
         userInitialsValue = userInitialsEl.value;
-        // storeScore();
         createScoreHistory();
     } else {
         //TO DO: Update This to inner HTML when I get this to run
@@ -297,22 +291,19 @@ function storeUserInitialVar() {
     }
 };
 
-function createScoreHistory(userInitialsValue, newScore) {
-    scoreHistoryArr = JSON.parse(localStorage.getItem('scoreHistory')) || [];
+function createScoreHistory() {
+    let scoreHistoryArr = [];
+    if (JSON.parse(localStorage.getItem('scoreHistory'))) {
+    scoreHistoryArr.push(JSON.parse(localStorage.getItem('scoreHistory'))) 
+    };
     let currentScore = {
         initials: userInitialsValue,
         score: newScore
     };
     scoreHistoryArr.push(currentScore);
-    localStorage.setItem('scoreHistory', JSON.stringify(currentScore));
+    localStorage.setItem('scoreHistory', JSON.stringify(scoreHistoryArr));
     renderHighScore();
 };
-
-// function storeScore() {
-//     localStorage.setItem('initials', JSON.stringify(userInitialsValue));
-//     localStorage.setItem('score', JSON.stringify(newScore));
-//     renderHighScore();
-// };
 
 function renderHighScore() {
     locStoreInitials = JSON.parse(localStorage.getItem('initials'));
@@ -324,12 +315,10 @@ function renderHighScore() {
         outputHSInitials1.innerHTML = locStoreInitials;
         outputHSScore1.innerHTML = locStoreScore;
     };
-    closeModal();
 };
 
 function closeModal() {
-    quizModal.style.display = "none";
-    // $('#quizModal').modal('hide');
+    quizModal.classList.remove('show')
 };
 
 init();
