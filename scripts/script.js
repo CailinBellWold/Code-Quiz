@@ -318,7 +318,11 @@ function renderHighScore() {
 };
 
 function closeModal() {
-    quizModal.classList.remove('show')
+    quizModal.classList.remove('show');
+    let body = document.getElementsByTagName('body')[0];
+    body.classList.remove('modal-open');
+    let modalBackdrop = document.querySelector('.modal-backdrop');
+    modalBackdrop.classList.remove('show');
 };
 
 init();
