@@ -25,6 +25,7 @@ let quizFieldsetEl = document.querySelector('.fieldset')
 let quizScoreFormEl = document.querySelector('.score-form')
 let userInitialsEl = document.querySelector('#inputInitials')
 let quizStaticScoreEl = document.querySelector('#static-score')
+let scoreHistoryArr = [];
 
 // Buttons
 let btnBegin = document.querySelector('.begin');
@@ -65,24 +66,15 @@ function btnModalEventListener() {
     if (buttonState === 'Next') {
         scoreQuestion();
     } else if (buttonState === 'Submit') {
+        scoreQuestion();
         quizComplete();
     } else if (buttonState === 'Save') {
         event.preventDefault();
         storeUserInitialVar();
-        function storeUserInitialVar(event) {
-            if (userInitialsEl.value) {
-                userInitialsValue = userInitialsEl.value;
-                storeScore();
-                // return(event);
-            } else {
-                //TO DO: Update This to inner HTML when I get this to run
-                alert("Please Enter Your Initials and Press Save");
-            }
-        }
     } else {
-        alert("Fix Yo Buttons");
+        console.log("Fix Your Buttons");
     }
-});
+    });
 };
 
 // Button State Functions
@@ -240,10 +232,10 @@ function displayQuestion() {
     currentChoiceD = quizContent[currentQuestionIndex].choices.d;
     quizCurrentChoiceDEl.innerHTML = currentChoiceD;
 
-        // If Last Question, Update Button State to Submit
-        if (currentQuestionIndex === lastQuestion) {
-            buttonStatetoSubmit();
-            };
+    // If Last Question, Update Button State to Submit
+    if (currentQuestionIndex === lastQuestion) {
+        buttonStatetoSubmit();
+    };
 };
 
 // Function to Determine Value of Checked Radio Button at time of Modal Button Click Event
@@ -273,6 +265,7 @@ function scoreQuestion(event) {
     } else if ((currentChoiceValue == quizContent[currentQuestionIndex].answer) && (currentQuestionIndex == lastQuestion)) {
         quizResultsEl.innerHTML = '<div class="text-success h5">Correct!</div>';
         numCorrect++;
+        console.log(numCorrect);
         setTimeout(quizComplete, 2000);
         //TO DO: Clear Check-Marks
         return(event);
@@ -304,10 +297,30 @@ function quizComplete() {
     buttonStatetoSave();
 };
 
+function storeUserInitialVar() {
+    if (userInitialsEl.value) {
+        userInitialsValue = userInitialsEl.value;
+        storeScore();
+        // createScoreHistory();
+    } else {
+        //TO DO: Update This to inner HTML when I get this to run
+        alert("Please Enter Your Initials and Press Save");
+    }
+};
+
+// function createScoreHistory(userInitialsValue, score) {
+//     newScore = {
+//         initials: userInitialsValue,
+//         score: score
+//     }
+//     scoreHistoryArr.push(newScore);
+//     localStorage.setItem('scoreHistory', JSON.stringify(newScore));
+//     renderHighScore();
+// }
 
 function storeScore() {
     localStorage.setItem('initials', userInitialsValue);
-    localStorage.setItem('score', score);
+    localStorage.setItem('score', JSON.stringify(score));
     renderHighScore();
 };
 
